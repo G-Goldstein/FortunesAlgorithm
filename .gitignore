@@ -1,0 +1,9 @@
+#User Specific
+*.userprefs
+*.usertasks
+
+#Project Files
+*.pidb
+*.resources
+
+**/Debug
