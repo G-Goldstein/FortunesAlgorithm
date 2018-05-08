@@ -3,13 +3,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3DF7D1B0-6F99-451F-8187-16289F23D607}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>FortunesAlgorithm</RootNamespace>
-    <AssemblyName>FortunesAlgorithm</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0BC1559B-4132-4FA3-90C2-0C7B75925E9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Structures</RootNamespace>
+    <AssemblyName>Structures</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,23 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Point.cs" />
-    <Compile Include="VoronoiCell.cs" />
-    <Compile Include="BoundaryRay.cs" />
-    <Compile Include="Parabola.cs" />
-    <Compile Include="Line.cs" />
-    <Compile Include="VoronoiDiagram.cs" />
-    <Compile Include="SortedQueue.cs" />
-    <Compile Include="IEventPoint.cs" />
-    <Compile Include="SiteEventPoint.cs" />
-    <Compile Include="Vector3.cs" />
-    <Compile Include="IntersectEventPoint.cs" />
+    <Compile Include="Heap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\Structures\Structures.csproj">
-      <Project>{0BC1559B-4132-4FA3-90C2-0C7B75925E9E}</Project>
-      <Name>Structures</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
