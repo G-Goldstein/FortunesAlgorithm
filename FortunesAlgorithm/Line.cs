@@ -32,7 +32,7 @@ namespace FortunesAlgorithm
 		}
 
 		public Point Intersect(Line that) {
-			return new Point (this.Vector ().CrossProduct (that.Vector ())).Normalised();
+			return new Point (this.Vector ().CrossProduct (that.Vector ()));
 		}
 
 		Line ParallelThroughOrigin() {

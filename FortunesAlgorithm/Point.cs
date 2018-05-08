@@ -14,9 +14,9 @@ namespace FortunesAlgorithm
 		public Point(Vector3 v) {
 			if (v.z == 0)
 				throw new ArgumentOutOfRangeException("z cannot be 0 for a point defined as Vector3.");
-			x = v.x;
-			y = v.y;
-			z = v.z;
+			x = v.x/v.z;
+			y = v.y/v.z;
+			z = 1;
 		}
 
 		public Vector3 Vector() {
@@ -56,10 +56,6 @@ namespace FortunesAlgorithm
 
 		public float Cartesiany() {
 			return y / z;
-		}
-
-		public Point Normalised() {
-			return new Point (Cartesianx(), Cartesiany());
 		}
 
 		public Point MidpointWith(Point that) {
