@@ -40,7 +40,6 @@
     <Compile Include="Parabola.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="VoronoiDiagram.cs" />
-    <Compile Include="SortedQueue.cs" />
     <Compile Include="IEventPoint.cs" />
     <Compile Include="SiteEventPoint.cs" />
     <Compile Include="Vector3.cs" />

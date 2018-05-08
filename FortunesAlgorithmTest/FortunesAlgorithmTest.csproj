@@ -38,7 +38,6 @@
   <ItemGroup>
     <Compile Include="PointTest.cs" />
     <Compile Include="LineTest.cs" />
-    <Compile Include="SortedQueueTest.cs" />
     <Compile Include="Vector3Test.cs" />
     <Compile Include="BoundaryRayTest.cs" />
   </ItemGroup>
