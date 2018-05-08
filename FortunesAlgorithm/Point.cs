@@ -58,6 +58,10 @@ namespace FortunesAlgorithm
 			return y / z;
 		}
 
+		public Point Normalised() {
+			return new Point (Cartesianx(), Cartesiany());
+		}
+
 		public Point MidpointWith(Point that) {
 			Vector3 av = this.Vector ();
 			Vector3 bv = that.Vector ();

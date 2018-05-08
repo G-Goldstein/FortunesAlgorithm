@@ -86,7 +86,7 @@ namespace FortunesAlgorithmTest
 
 		[Test]
 		public void StressTest() {
-			// With floating point precision, how much can we do before the numbers don't match any more?
+			// With floating point precision, do the maths break down after many repeated calls?
 			// We'll use a rectangle of points, and keep calling for perpendicular lines along its edges.
 			Point topLeft = new Point(3, 7);
 			Point bottomLeft = new Point(2, 3);
@@ -100,9 +100,15 @@ namespace FortunesAlgorithmTest
 
 			Line cumulativeLine = left;
 
-			for (int i = 0; i < 1; i++) {
+			for (int i = 0; i < 1000; i++) {
 				cumulativeLine = cumulativeLine.PerpendicularThroughPoint (bottomLeft);
 				Assert.AreEqual (bottom, cumulativeLine);
+				cumulativeLine = cumulativeLine.PerpendicularThroughPoint (bottomRight);
+				Assert.AreEqual (right, cumulativeLine);
+				cumulativeLine = cumulativeLine.PerpendicularThroughPoint (topRight);
+				Assert.AreEqual (top, cumulativeLine);
+				cumulativeLine = cumulativeLine.PerpendicularThroughPoint (topLeft);
+				Assert.AreEqual (left, cumulativeLine);
 			}
 		}
 

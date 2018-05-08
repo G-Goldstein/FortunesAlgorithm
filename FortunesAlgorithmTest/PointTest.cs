@@ -62,5 +62,35 @@ namespace FortunesAlgorithmTest
 
 			Assert.AreEqual (ab, a.MidpointWith (b));
 		}
+
+		[Test]
+		public void StressTest() {
+			// With floating point precision, do the maths break down after many repeated calls?
+			// We'll use a rectangle of points to construct a line and two perpendiculars,
+			// and keep calling for the intersections of the lines made from the line
+			// passing through the previous iteration's intersections.
+			Point topLeft = new Point(3, 7);
+			Point bottomLeft = new Point(2, 3);
+			Point bottomRight = new Point(6, 2);
+			Point topRight = new Point(7, 6);
+
+			Line left = topLeft.LineWith (bottomLeft);
+			Line bottom = bottomLeft.LineWith (bottomRight);
+			Line right = bottomRight.LineWith (topRight);
+			Line top = topRight.LineWith (topLeft);
+
+			Point cumulativeLeftPoint = topLeft;
+			Point cumulativeRightPoint = topRight;
+			Line cumulativeHorizontal;
+
+			for (int i = 0; i < 1000; i++) {
+				cumulativeHorizontal = cumulativeLeftPoint.LineWith (cumulativeRightPoint);
+				Assert.AreEqual (cumulativeHorizontal, cumulativeLeftPoint.LineWith (cumulativeRightPoint));
+				cumulativeLeftPoint = left.Intersect (cumulativeHorizontal);
+				cumulativeRightPoint = right.Intersect (cumulativeHorizontal);
+				Assert.AreEqual (cumulativeLeftPoint, topLeft);
+				Assert.AreEqual (cumulativeRightPoint, topRight);
+			}
+		}
 	}
 }
