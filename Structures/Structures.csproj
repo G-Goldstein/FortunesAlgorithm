@@ -35,6 +35,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Heap.cs" />
+    <Compile Include="RBTree.cs" />
+    <Compile Include="RBNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
