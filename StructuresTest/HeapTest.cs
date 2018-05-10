@@ -12,7 +12,7 @@ namespace StructuresTest
 
 		[SetUp]
 		public void SetUp() {
-			h = new Heap<int> ((a, b) => a-b);
+			h = new Heap<int> ((a, b) => a > b);
 		}
 
 		[Test]

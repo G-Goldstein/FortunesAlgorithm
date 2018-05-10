@@ -7,9 +7,9 @@ namespace Structures
 	{
 		int length;
 		List<T> list;
-		Comparison<T> compare;
+		Func<T,T,bool> compare;
 
-		public Heap(Comparison<T> compare)
+		public Heap(Func<T,T,bool> compare)
 		{
 			length = 0;
 			list = new List<T>();
@@ -38,7 +38,7 @@ namespace Structures
 		}
 
 		void BubbleUp(int index) {
-			if (!Root (index) && compare (list [index], list [Parent (index)]) > 0) {
+			if (!Root (index) && compare (list [index], list [Parent (index)])) {
 				Swap (index, Parent (index));
 				BubbleUp (Parent (index));
 			}
@@ -48,11 +48,11 @@ namespace Structures
 			int preferredIndex;
 			if (!LeftChildExists (index))
 				return;
-			if (RightChildExists (index) && compare (RightChild (index), LeftChild (index)) > 0)
+			if (RightChildExists (index) && compare (RightChild (index), LeftChild (index)))
 				preferredIndex = RightChildIndex (index);
 			else
 				preferredIndex = LeftChildIndex (index);
-			if (compare (list[preferredIndex], list[index]) > 0) {
+			if (compare (list[preferredIndex], list[index])) {
 				Swap (index, preferredIndex);
 				BubbleDown (preferredIndex);
 			}
