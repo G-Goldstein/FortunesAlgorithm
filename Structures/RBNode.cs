@@ -18,7 +18,7 @@ namespace Structures
 				return null;
 			if (parent.left == this)
 				return parent.right;
-			return parent.right;
+			return parent.left;
 		}
 
 		protected RBNode<T> Uncle() {
@@ -46,22 +46,34 @@ namespace Structures
 		public RBBranch(T value) : this(value, null) {}
 
 		void RotateLeft() {
-			RBBranch<T> newLocalRoot = (RBBranch<T>)right;
-			if (newLocalRoot == null) 
+			if (!(right is RBBranch<T>))
 				throw new InvalidOperationException ("Can't rotate left a branch with a right leaf");
+			RBBranch<T> newLocalRoot = (RBBranch<T>)right;
 			RBNode<T> middle = newLocalRoot.left;
+			if (parent != null) {
+				if (this == parent.left)
+					parent.left = newLocalRoot;
+				else
+					parent.right = newLocalRoot;
+			}
 			newLocalRoot.parent = this.parent;
 			this.parent = newLocalRoot;
 			newLocalRoot.left = this;
 			this.right = middle;
-			middle.parent = this; 
+			middle.parent = this;
 		}
 
 		void RotateRight() {
-			RBBranch<T> newLocalRoot = (RBBranch<T>)left;
-			if (newLocalRoot == null) 
+			if (!(left is RBBranch<T>))
 				throw new InvalidOperationException ("Can't rotate right a branch with a left leaf");
+			RBBranch<T> newLocalRoot = (RBBranch<T>)left;
 			RBNode<T> middle = newLocalRoot.right;
+			if (parent != null) {
+				if (this == parent.left)
+					parent.left = newLocalRoot;
+				else
+					parent.right = newLocalRoot;
+			}
 			newLocalRoot.parent = this.parent;
 			this.parent = newLocalRoot;
 			newLocalRoot.right = this;
@@ -77,7 +89,7 @@ namespace Structures
 				left.Insert (newNode);
 		}
 
-		void InsertRepair() {
+		public void InsertRepair() {
 			if (parent == null) {
 				red = false;
 			} else if (!parent.red) {
@@ -101,23 +113,24 @@ namespace Structures
 		}
 
 		RBBranch<T> RepairRotateToOutside() {
+			RBBranch<T> originalParent = parent;
 			if (parent == Grandparent ().left && this == parent.right) {
 				parent.RotateLeft ();
-				return parent;
+				return originalParent;
 			} else if (parent == Grandparent().right && this == parent.left) {
 				parent.RotateRight ();
-				return parent;
+				return originalParent;
 			}
 			return this;
 		}
 
 		void RepairRotateParentToGrandparent() {
-			if (this == parent.left)
-				Grandparent ().RotateRight ();
-			else
-				Grandparent ().RotateLeft ();
 			parent.red = false;
-			Grandparent ().red = true;
+			Grandparent().red = true;
+			if (this == parent.left)
+				Grandparent().RotateRight ();
+			else
+				Grandparent().RotateLeft ();
 		}
 	}
 
@@ -131,10 +144,12 @@ namespace Structures
 
 		public override void Insert (RBBranch<T> newNode)
 		{
-			if (parent.left == this)
-				parent.left = newNode;
-			else
-				parent.right = newNode;
+			if (parent != null) {
+				if (parent.left == this)
+					parent.left = newNode;
+				else
+					parent.right = newNode;
+			}
 			newNode.parent = parent;
 		}
 	}
