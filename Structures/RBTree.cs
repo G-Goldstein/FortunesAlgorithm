@@ -23,6 +23,20 @@ namespace Structures
 		public void Add(T value) {
 			Insert (new RBBranch<T> (value));
 		}
+
+		public void Remove(T value) {
+			root.Remove (value);
+
+			RBBranch<T> rootBranch = (RBBranch<T>)root;
+			if (rootBranch.left.parent == null) {
+				root = rootBranch.left;
+			}
+			else if (rootBranch.right.parent == null) {
+				root = rootBranch.right;
+			}
+			while (root.parent != null)
+				root = root.parent;
+		}
 	}
 }
 

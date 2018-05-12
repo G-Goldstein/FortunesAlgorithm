@@ -20,6 +20,12 @@ namespace StructuresTest
 		}
 
 		[Test]
+		public void NewTreeIsEmpty() {
+			Assert.True(EmptyTree(intTree));
+			Assert.True(EmptyTree(floatTree));
+		}
+
+		[Test]
 		public void EmptyTreeSatisfiesProperties() {
 			AssertRBTreeProperties(intTree);
 		}
@@ -39,16 +45,139 @@ namespace StructuresTest
 			}
 		}
 
+		[Test]
+		public void TreeWithElementIsNotEmpty() {
+			AddTwoToIntTree ();
+			Assert.False(EmptyTree(intTree));
+		}
+
+		[Test]
+		public void AddDuplicateValueShouldError() {
+			AddTwoToIntTree ();
+			Assert.Throws<ArgumentException>(AddTwoToIntTree);
+		}
+
+		[Test]
+		public void RemoveAbsentValueShouldError() {
+			Assert.Throws<ArgumentException>(RemoveTwoFromIntTree);
+		}
+
+		[Test]
+		public void AddAndRemoveOneElementSatisfiesConditionsAndEmptiness() {
+			AddAndCheck (intTree, 5);
+			RemoveAndCheck (intTree, 5);
+			Assert.True(EmptyTree(intTree));
+		}
+
+		[Test]
+		public void RemoveLinearlyAndCheckProperties() {
+			for (int i = 0; i < 1000; i++) {
+				intTree.Add (i);
+			}
+			for (int i = 0; i < 1000; i++) {
+				RemoveAndCheck (intTree, i);
+			}
+		}
+
+		[Test]
+		public void RemoveLinearlyAndCheckPropertiesDescending() {
+			for (int i = 0; i < 1000; i++) {
+				intTree.Add (i);
+			}
+			for (int i = 999; i >= 0; i--) {
+				RemoveAndCheck (intTree, i);
+			}
+		}
+
+		[Test]
+		public void RemoveLinearlyAndCheckPropertiesFromMiddle() {
+			for (int i = 0; i < 1000; i++) {
+				intTree.Add (i);
+			}
+			for (int i = 500; i < 1000; i++) {
+				RemoveAndCheck (intTree, i);
+			}
+		}
+
+		[Test]
+		public void RemoveRandomlyAndCheckProperties() {
+			HashSet<float> set = new HashSet<float> ();
+			for (int i = 0; i < 1000; i++) {
+				set.Add(rng.Next());
+			}
+			foreach (float f in set) {
+				floatTree.Add (f);
+			}
+			AssertRBTreeProperties (floatTree);
+			foreach (float f in set) {
+				RemoveAndCheck (floatTree, f);
+			}
+		}
+
+		void AddTwoToIntTree() {
+			intTree.Add (2);
+		}
+
+		void RemoveTwoFromIntTree() {
+			intTree.Remove (2);
+		}
+
+		bool EmptyTree<T>(RBTree<T> tree) where T : IComparable {
+			return tree.root is RBLeaf<T>;
+		}
+
 		void AddAndCheck<T>(RBTree<T> tree, T value) where T : IComparable {
 			tree.Add (value);
 			AssertRBTreeProperties (tree);
 		}
 
+		void RemoveAndCheck<T>(RBTree<T> tree, T value) where T : IComparable {
+			tree.Remove (value);
+			AssertRBTreeProperties (tree);
+		}
+
 		void AssertRBTreeProperties<T>(RBTree<T> tree) where T : IComparable {
+			AssertTreeProperties<T> (tree);
 			AssertRootIsBlack (tree);
 			AssertAllLeavesBlack (tree);
 			AssertRedNodesHaveBlackChildren (tree);
 			EveryDescendantPathHasTheSameNumberOfBlackNodes (tree);
+		}
+
+		void AssertTreeProperties<T>(RBTree<T> tree) where T : IComparable {
+			if (tree.root is RBLeaf<T>)
+				return;
+			RBBranch<T> branch = (RBBranch<T>)tree.root;
+			AssertValuesLessThan (branch.left, branch.value);
+			AssertValuesGreaterThan (branch.right, branch.value);
+		}
+
+		void AssertValuesLessThan<T>(RBNode<T> node, T max) where T : IComparable {
+			if (node is RBLeaf<T>)
+				return;
+			RBBranch<T> branch = (RBBranch<T>)node;
+			Assert.Less (branch.value, max);
+			AssertValuesLessThan (branch.left, branch.value);
+			AssertValuesInRange (branch.right, branch.value, max);
+		}
+
+		void AssertValuesGreaterThan<T>(RBNode<T> node, T min) where T : IComparable {
+			if (node is RBLeaf<T>)
+				return;
+			RBBranch<T> branch = (RBBranch<T>)node;
+			Assert.Greater (branch.value, min);
+			AssertValuesInRange (branch.left, min, branch.value);
+			AssertValuesGreaterThan (branch.right, branch.value);
+		}
+
+		void AssertValuesInRange<T>(RBNode<T> node, T min, T max) where T : IComparable {
+			if (node is RBLeaf<T>)
+				return;
+			RBBranch<T> branch = (RBBranch<T>)node;
+			Assert.Greater (branch.value, min);
+			Assert.Less (branch.value, max);
+			AssertValuesInRange (branch.left, min, branch.value);
+			AssertValuesInRange (branch.right, branch.value, max);
 		}
 
 		void AssertRootIsBlack<T>(RBTree<T> tree) where T : IComparable {
@@ -96,26 +225,6 @@ namespace StructuresTest
 			if (branch.red)
 				return leftBlacks;
 			return leftBlacks + 1;
-		}
-
-		void DrawTreeColour<T>(RBTree<T> tree, int maxDepth) where T : IComparable {
-			for (int i = 0; i < maxDepth; i++ ) {
-				DrawTreeRow<T>(tree.root, i);
-				Console.WriteLine ();
-			}
-		}
-
-		void DrawTreeRow<T>(RBNode<T> node, int depth) where T : IComparable {
-			if (depth == 0 && node is RBBranch<T>) {
-				if (node.red)
-					Console.Write ("r");
-				else
-					Console.Write ("b");
-			} else if (depth > 0 && node is RBBranch<T>) {
-				RBBranch<T> branch = (RBBranch<T>)node;
-				DrawTreeRow (branch.left, depth-1);
-				DrawTreeRow (branch.right, depth-1);
-			}	
 		}
 	}
 }
