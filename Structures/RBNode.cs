@@ -38,7 +38,7 @@ namespace Structures
 			if (Sibling ().red) {
 				parent.red = true;
 				Sibling ().red = false;
-				if (this == parent.left) 
+				if (this == parent.left)
 					parent.RotateLeft ();
 				else
 					parent.RotateRight ();
@@ -67,13 +67,11 @@ namespace Structures
 
 			if ((this == parent.left) &&
 			    (!sibling.right.red)) {
-				Console.WriteLine ("Step 5 hit");
 				sibling.left.red = false;
 				sibling.red = true;
 				sibling.RotateRight ();
 			} else if ((this == parent.right) &&
 				(!sibling.left.red)) {
-				Console.WriteLine ("Step 5 hit");
 				sibling.left.red = false;
 				sibling.red = true;
 				sibling.RotateLeft ();
@@ -166,7 +164,7 @@ namespace Structures
 			this.parent = newLocalRoot;
 			newLocalRoot.right = this;
 			this.left = middle;
-			middle.parent = this; 
+			middle.parent = this;
 		}
 
 		public void InsertRepair() {
@@ -217,7 +215,7 @@ namespace Structures
 			if (!(left is RBBranch<T>))
 				return this;
 			RBBranch<T> branch = (RBBranch<T>)left;
-			return branch;
+			return branch.MinBranch();
 		}
 
 		public void Delete() {

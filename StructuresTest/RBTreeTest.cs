@@ -11,12 +11,18 @@ namespace StructuresTest
 		RBTree<int> intTree;
 		RBTree<float> floatTree;
 		Random rng;
+		HashSet<float> floatSet;
 
 		[SetUp]
 		public void SetUp() {
-			rng = new Random ();
+			Console.WriteLine ("Setup");
 			intTree = new RBTree<int> ();
 			floatTree = new RBTree<float> ();
+			rng = new Random ();
+			floatSet = new HashSet<float> ();
+			for (int i = 0; i < 1000; i++) {
+				floatSet.Add(rng.Next());
+			}
 		}
 
 		[Test]
@@ -40,8 +46,8 @@ namespace StructuresTest
 
 		[Test]
 		public void AddRandomlyAndCheckProperties() {
-			for (int i = 0; i < 1000; i++) {
-				AddAndCheck (floatTree, rng.Next());
+			foreach (float f in floatSet) {
+				AddAndCheck (floatTree, f);
 			}
 		}
 
@@ -101,15 +107,11 @@ namespace StructuresTest
 
 		[Test]
 		public void RemoveRandomlyAndCheckProperties() {
-			HashSet<float> set = new HashSet<float> ();
-			for (int i = 0; i < 1000; i++) {
-				set.Add(rng.Next());
-			}
-			foreach (float f in set) {
+			foreach (float f in floatSet) {
 				floatTree.Add (f);
 			}
 			AssertRBTreeProperties (floatTree);
-			foreach (float f in set) {
+			foreach (float f in floatSet) {
 				RemoveAndCheck (floatTree, f);
 			}
 		}
