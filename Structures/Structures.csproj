@@ -37,6 +37,8 @@
     <Compile Include="Heap.cs" />
     <Compile Include="RBTree.cs" />
     <Compile Include="RBNode.cs" />
+    <Compile Include="RBBranch.cs" />
+    <Compile Include="RBLeaf.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
