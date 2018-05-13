@@ -6,7 +6,6 @@ namespace FortunesAlgorithm
 	{
 		float x;
 		float y;
-		float z;
 
 		public Point (float x, float y) : this(new Vector3(x, y, 1)) {
 		}
@@ -16,11 +15,10 @@ namespace FortunesAlgorithm
 				throw new ArgumentOutOfRangeException("z cannot be 0 for a point defined as Vector3.");
 			x = v.x/v.z;
 			y = v.y/v.z;
-			z = 1;
 		}
 
 		public Vector3 Vector() {
-			return new Vector3 (x, y, z);
+			return new Vector3 (x, y, 1);
 		}
 
 		public Line LineWith(Point that) {
@@ -38,7 +36,7 @@ namespace FortunesAlgorithm
 
 		public override int GetHashCode ()
 		{
-			return (x / z).GetHashCode () + (y / z).GetHashCode ();
+			return x.GetHashCode () + y.GetHashCode ();
 		}
 
 		public override bool Equals (object obj)
@@ -51,11 +49,11 @@ namespace FortunesAlgorithm
 		}
 
 		public float Cartesianx() {
-			return x / z;
+			return x;
 		}
 
 		public float Cartesiany() {
-			return y / z;
+			return y;
 		}
 
 		public Point MidpointWith(Point that) {
