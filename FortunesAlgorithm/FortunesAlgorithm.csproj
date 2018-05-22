@@ -44,6 +44,7 @@
     <Compile Include="SiteEventPoint.cs" />
     <Compile Include="Vector3.cs" />
     <Compile Include="IntersectEventPoint.cs" />
+    <Compile Include="BeachSection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
