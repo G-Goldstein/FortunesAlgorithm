@@ -33,6 +33,10 @@ namespace FortunesAlgorithm
 			return rightBoundary == null;
 		}
 
+		public bool IsFullBeachLine() {
+			return IsLeftmost () && IsRightmost ();
+		}
+
 		public int CompareTo(Object obj) {
 			if (obj is BeachSection) {
 				BeachSection that = (BeachSection)obj;
@@ -69,11 +73,13 @@ namespace FortunesAlgorithm
 			if (this.Equals(that))
 				return 0;
 			// Eliminate all cases with null boundaries
+			if (this.IsFullBeachLine () || that.IsFullBeachLine())
+				throw new InvalidOperationException ("Can't compare full beach line to another beach section");
 			if (this.IsLeftmost () || that.IsRightmost ())
 				return -1;
 			if (this.IsRightmost () || that.IsLeftmost ())
 				return 1;
-
+			return 0; // This needs finishing
 
 		}
 	}
