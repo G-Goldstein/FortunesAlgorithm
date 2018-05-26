@@ -65,6 +65,11 @@ namespace FortunesAlgorithm
 			return hashCode;
 		}
 
+		public override string ToString ()
+		{
+			return String.Format("BS({0}, {1}, {2})", leftBoundary, focus, rightBoundary);
+		}
+
 		public int CompareTo(Point site) {
 			return 0; // This needs writing and testing.
 		}
@@ -79,8 +84,33 @@ namespace FortunesAlgorithm
 				return -1;
 			if (this.IsRightmost () || that.IsLeftmost ())
 				return 1;
-			return 0; // This needs finishing
+			if (this.focus.Cartesiany () == that.focus.Cartesiany ()) {
+				return this.focus.Cartesianx ().CompareTo (that.focus.Cartesianx ());
+			}
+			// Both sections have a left and a right edge and they're not the same. 
+			// Use a separate function for the details, as we may want to run it twice
+			// if our foci are the wrong way up.
+			return CompareProperBeachSectionToProperBeachSection (that);
+		}
 
+		int CompareProperBeachSectionToProperBeachSection(BeachSection that) {
+			if (this.focus.Cartesiany() < that.focus.Cartesiany())
+				return -that.CompareProperBeachSectionToProperBeachSection (this);
+			Point edgeBoundary;
+			int leftMirror; // A simple 1 or -1 multiplier. We'll assume our edge is to the left, and use this to mirror the result.
+			if (this.focus.Cartesianx () <= that.focus.Cartesianx ()) {
+				edgeBoundary = this.leftBoundary;
+				leftMirror = 1;
+			} else {
+				edgeBoundary = this.rightBoundary;
+				leftMirror = -1;
+			}
+			if (edgeBoundary.Cartesiany () >= this.focus.Cartesiany()) // If our edge point is above both foci
+				return -1 * leftMirror;
+			if (edgeBoundary.Cartesiany () <= that.focus.Cartesiany ()) { // If our edge point is below both foci
+				return edgeBoundary.Cartesianx().CompareTo(that.focus.Cartesianx()) * leftMirror;
+			}
+			throw new ApplicationException (String.Format ("Couldn't resolve comparison of beach sections {0} and {1}", this, that));
 		}
 	}
 }
