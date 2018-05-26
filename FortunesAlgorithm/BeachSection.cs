@@ -88,8 +88,7 @@ namespace FortunesAlgorithm
 				return this.focus.Cartesianx ().CompareTo (that.focus.Cartesianx ());
 			}
 			// Both sections have a left and a right edge and they're not the same. 
-			// Use a separate function for the details, as we may want to run it twice
-			// if our foci are the wrong way up.
+			// Use a separate function for the details, which can be tail recursive.
 			Console.WriteLine ("Proper beach section");
 			return CompareProperBeachSectionToProperBeachSection (that);
 		}
@@ -101,7 +100,7 @@ namespace FortunesAlgorithm
 				return -FlippedHorizontally (this).CompareProperBeachSectionToProperBeachSection (FlippedHorizontally (that));
 			if (this.leftBoundary.Cartesiany () >= this.focus.Cartesiany()) // If our edge point is above both foci
 				return -1;
-			if (this.leftBoundary.Cartesiany () <= that.focus.Cartesiany ()) // If our edge point is below both foci
+			if (this.leftBoundary.Cartesiany () < that.focus.Cartesiany ()) // If our edge point is below both foci
 				return this.leftBoundary.Cartesianx().CompareTo(that.focus.Cartesianx());
 			if (this.leftBoundary.Cartesianx() >= that.focus.Cartesianx ()) // If our left edge is to the right of the lower focus
 				return 1;

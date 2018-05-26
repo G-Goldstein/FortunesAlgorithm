@@ -290,6 +290,34 @@ namespace FortunesAlgorithmTest
 			}
 		}
 
+		[Test]
+		public void ThisLeftEdgeDirectlyLeftOfThisFocus_Then_ThisIsLeftOfThat() {
+			for (int i = 0; i < 100; i++) {
+				float y = SomeValue (10);
+				float ax = SomeValue (10);
+				float bx = ax + SomePositiveValue (10);
+				float thaty = y - SomePositiveValue (10);
+				float thatx = bx + SomePositiveValue (10);
+				BeachSection beachA = new BeachSection (new Point (bx, y), new Point(ax, y), RandomPoint ());
+				BeachSection beachB = new BeachSection (new Point(thatx, thaty), RandomPoint (), RandomPoint ());
+				AssertGreater (beachB, beachA);
+			}
+		}
+
+		[Test]
+		public void ThisRightEdgeDirectlyRightOfThisFocus_Then_ThisIsRightOfThat() {
+			for (int i = 0; i < 100; i++) {
+				float y = SomeValue (10);
+				float ax = SomeValue (10);
+				float bx = ax - SomePositiveValue (10);
+				float thaty = y - SomePositiveValue (10);
+				float thatx = bx - SomePositiveValue (10);
+				BeachSection beachA = new BeachSection (new Point (bx, y), RandomPoint(), new Point(ax, y));
+				BeachSection beachB = new BeachSection (new Point(thatx, thaty), RandomPoint (), RandomPoint ());
+				AssertGreater (beachA, beachB);
+			}
+		}
+
 		// Helper functions
 
 		void AssertGreater (BeachSection a, BeachSection b) {
