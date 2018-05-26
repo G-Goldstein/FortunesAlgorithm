@@ -126,7 +126,7 @@ namespace FortunesAlgorithmTest
 				Point edge = new Point (edgex, edgey);
 				BeachSection thisSection = new BeachSection (thisFocus, RandomPoint (), edge);
 				BeachSection thatSection = new BeachSection (thatFocus, RandomPoint (), RandomPoint());
-				AssertGreater (thatSection, thisSection);
+				AssertGreater (thisSection, thatSection);
 			}
 		}
 
@@ -162,7 +162,112 @@ namespace FortunesAlgorithmTest
 				Point edge = new Point (edgex, edgey);
 				BeachSection thisSection = new BeachSection (thisFocus, RandomPoint (), edge);
 				BeachSection thatSection = new BeachSection (thatFocus, RandomPoint (), RandomPoint());
+				AssertGreater (thatSection, thisSection);
+			}
+		}
+
+		// Some specific tests in the tricky case where our 'edge' point is below the higher focus but above the lower focus.
+		// These feature only three points in total, which are used as the focus, left and right boundaries of the two beach sections under comparison.
+		// This is meaningful because three points form three parabolae, which can interact in various ways.
+
+		[Test]
+		public void WideTopArcWithTwoSmallerArcs() {
+			Point highFocus = new Point (0, 1000);
+			Point farLeftFocus = new Point (-1500, 0);
+			Point midLeftFocus = new Point (-500, 0);
+			Point midRightFocus = new Point (500, 0);
+			Point farRightFocus = new Point (1500, 0);
+			Point farLeftEdge = new Point (-1500, 1);
+			Point midLeftEdge = new Point (-500, 1);
+			Point midRightEdge = new Point (500, 1);
+			Point farRightEdge = new Point (1500, 1);
+			CompareWideTopArcBeachSections (highFocus, farLeftEdge, midLeftFocus);
+			CompareWideTopArcBeachSections (highFocus, midLeftEdge, midRightFocus);
+			CompareWideTopArcBeachSections (highFocus, midRightEdge, farRightFocus);
+			CompareWideTopArcBeachSections (highFocus, farRightEdge, midRightFocus);
+			CompareWideTopArcBeachSections (highFocus, midRightEdge, midLeftFocus);
+			CompareWideTopArcBeachSections (highFocus, midLeftEdge, farLeftFocus);
+		}
+
+		void CompareWideTopArcBeachSections(Point topPoint, Point middlePoint, Point lowerPoint) {
+			BeachSection thisSection;
+			BeachSection thatSection;
+			Console.WriteLine ("MiddlePoint x: " + middlePoint.Cartesianx ());
+			Console.WriteLine ("LowerPoint x: " + lowerPoint.Cartesianx ());
+			Console.WriteLine ("MiddlePoint x < LowerPoint x: " + (middlePoint.Cartesianx() < lowerPoint.Cartesianx()));
+			if (middlePoint.Cartesianx () < lowerPoint.Cartesianx ()) {
+				thisSection = new BeachSection (topPoint, middlePoint, lowerPoint);
+				thatSection = new BeachSection (lowerPoint, topPoint, topPoint);
+				AssertGreater (thatSection, thisSection);
+			} else {
+				thisSection = new BeachSection (topPoint, lowerPoint, middlePoint);
+				thatSection = new BeachSection (lowerPoint, topPoint, topPoint);
 				AssertGreater (thisSection, thatSection);
+			}
+		}
+
+		[Test]
+		public void LeftEdgePointAtMidpointBetweenTwoFoci_Then_ThisIsRightOfThat() {
+			for (int i = 0; i < 100; i++) {
+				Point thisFocus = RandomPoint ();
+				float xOffset = SomePositiveValue (10);
+				float yOffset = SomePositiveValue (10);
+				Point edgePoint = new Point (thisFocus.Cartesianx () + xOffset, thisFocus.Cartesiany () - yOffset);
+				Point thatFocus = new Point (edgePoint.Cartesianx () + xOffset, edgePoint.Cartesiany () - yOffset);
+				BeachSection thisSection = new BeachSection (thisFocus, edgePoint, RandomPoint ());
+				BeachSection thatSection = new BeachSection (thatFocus, RandomPoint (), RandomPoint ());
+				AssertGreater (thisSection, thatSection);
+			}
+		}
+
+		[Test]
+		public void RightEdgePointAtMidpointBetweenTwoFoci_Then_ThisIsLeftOfThat() {
+			for (int i = 0; i < 100; i++) {
+				Point thisFocus = RandomPoint ();
+				float xOffset = SomePositiveValue (10);
+				float yOffset = SomePositiveValue (10);
+				Point edgePoint = new Point (thisFocus.Cartesianx () - xOffset, thisFocus.Cartesiany () - yOffset);
+				Point thatFocus = new Point (edgePoint.Cartesianx () - xOffset, edgePoint.Cartesiany () - yOffset);
+				BeachSection thisSection = new BeachSection (thisFocus, RandomPoint(), edgePoint);
+				BeachSection thatSection = new BeachSection (thatFocus, RandomPoint (), RandomPoint ());
+				AssertGreater (thatSection, thisSection);
+			}
+		}
+
+		[Test]
+		public void LeftEdgePointVerticallyBetweenFociAndRightOfBothFoci_Then_ThisIsRightOfThat() {
+			for (int i = 0; i < 100; i++) {
+				float thisx = SomeValue (10);
+				float thisy = SomeValue (10);
+				float thatx = thisx + SomePositiveValue (10);
+				float edgex = thatx + SomePositiveValue (10);
+				float edgey = thisy - SomePositiveValue (10);
+				float thaty = edgey - SomePositiveValue (10);
+				Point thisFocus = new Point (thisx, thisy);
+				Point thatFocus = new Point (thatx, thaty);
+				Point edge = new Point (edgex, edgey);
+				BeachSection thisSection = new BeachSection (thisFocus, edge, RandomPoint());
+				BeachSection thatSection = new BeachSection (thatFocus, RandomPoint (), RandomPoint());
+				AssertGreater (thisSection, thatSection);
+			}
+		}
+
+		[Test]
+		public void RightEdgePointVerticallyBetweenFociAndLeftOfBothFoci_Then_ThisIsLeftOfThat() {
+			for (int i = 0; i < 100; i++) {
+				Console.WriteLine (i);
+				float thisx = SomeValue (10);
+				float thisy = SomeValue (10);
+				float thatx = thisx - SomePositiveValue (10);
+				float edgex = thatx - SomePositiveValue (10);
+				float edgey = thisy - SomePositiveValue (10);
+				float thaty = edgey - SomePositiveValue (10);
+				Point thisFocus = new Point (thisx, thisy);
+				Point thatFocus = new Point (thatx, thaty);
+				Point edge = new Point (edgex, edgey);
+				BeachSection thisSection = new BeachSection (thisFocus, RandomPoint(), edge);
+				BeachSection thatSection = new BeachSection (thatFocus, RandomPoint (), RandomPoint());
+				AssertGreater (thatSection, thisSection);
 			}
 		}
 
@@ -209,7 +314,7 @@ namespace FortunesAlgorithmTest
 			while (result <= 0) {
 				result = SomeNonNegativeValue(max);
 			}
-			return result * max;
+			return result;
 		}
 
 		float SomeNonZeroValue(float max) {

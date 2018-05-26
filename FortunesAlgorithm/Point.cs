@@ -61,5 +61,9 @@ namespace FortunesAlgorithm
 			Vector3 bv = that.Vector ();
 			return new Point (new Vector3(av.x * bv.z + bv.x * av.z, av.y * bv.z + bv.y * av.z, 2 * av.z * bv.z));
 		}
+
+		public Line PerpendicularBisector(Point that) {
+			return this.LineWith (that).PerpendicularThroughPoint (this.MidpointWith (that));
+		}
 	}
 }

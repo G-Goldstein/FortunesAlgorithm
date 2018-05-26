@@ -90,27 +90,42 @@ namespace FortunesAlgorithm
 			// Both sections have a left and a right edge and they're not the same. 
 			// Use a separate function for the details, as we may want to run it twice
 			// if our foci are the wrong way up.
+			Console.WriteLine ("Proper beach section");
 			return CompareProperBeachSectionToProperBeachSection (that);
 		}
 
 		int CompareProperBeachSectionToProperBeachSection(BeachSection that) {
 			if (this.focus.Cartesiany() < that.focus.Cartesiany())
 				return -that.CompareProperBeachSectionToProperBeachSection (this);
-			Point edgeBoundary;
-			int leftMirror; // A simple 1 or -1 multiplier. We'll assume our edge is to the left, and use this to mirror the result.
-			if (this.focus.Cartesianx () <= that.focus.Cartesianx ()) {
-				edgeBoundary = this.leftBoundary;
-				leftMirror = 1;
-			} else {
-				edgeBoundary = this.rightBoundary;
-				leftMirror = -1;
-			}
-			if (edgeBoundary.Cartesiany () >= this.focus.Cartesiany()) // If our edge point is above both foci
-				return -1 * leftMirror;
-			if (edgeBoundary.Cartesiany () <= that.focus.Cartesiany ()) { // If our edge point is below both foci
-				return edgeBoundary.Cartesianx().CompareTo(that.focus.Cartesianx()) * leftMirror;
-			}
+			if (this.focus.Cartesianx () > that.focus.Cartesianx ()) // We want to assume that 'this' focus is to the left of 'that' focus, so if that's not true then flip the situation.
+				return -FlippedHorizontally (this).CompareProperBeachSectionToProperBeachSection (FlippedHorizontally (that));
+			if (this.leftBoundary.Cartesiany () >= this.focus.Cartesiany()) // If our edge point is above both foci
+				return -1;
+			if (this.leftBoundary.Cartesiany () <= that.focus.Cartesiany ()) // If our edge point is below both foci
+				return this.leftBoundary.Cartesianx().CompareTo(that.focus.Cartesianx());
+			if (this.leftBoundary.Cartesianx() >= that.focus.Cartesianx ()) // If our left edge is to the right of the lower focus
+				return 1;
+			// Final case, if our perpendicular bisector of the two foci crosses the vertical line through our lower focus at a lower point than
+			// our perpendicular bisector of our 'left' edge and our lower focus does...
+			Line twoFociBisector = this.focus.PerpendicularBisector(that.focus);
+			Line edgeAndLowerFocusBisector = this.leftBoundary.PerpendicularBisector (that.focus);
+			Line verticalLineThroughLowerFocus = new Line (1, 0, -that.focus.Cartesianx());
+			Point twoFociBisectorVerticalIntersect = twoFociBisector.Intersect (verticalLineThroughLowerFocus);
+			Point edgeAndLowerFocusBisectorVerticalIntersect = edgeAndLowerFocusBisector.Intersect (verticalLineThroughLowerFocus);
+			Console.WriteLine ("Gone into tricky bit");
+			return twoFociBisectorVerticalIntersect.Cartesiany ().CompareTo (edgeAndLowerFocusBisectorVerticalIntersect.Cartesiany ());
 			throw new ApplicationException (String.Format ("Couldn't resolve comparison of beach sections {0} and {1}", this, that));
+		}
+
+		BeachSection FlippedHorizontally(BeachSection bs) { // Just completely mirror all the x points through the line x=0, to conform to our 'higher focus is to the left' convention.
+			Point focus = bs.focus;
+			Point leftBoundary = bs.leftBoundary;
+			Point rightBoundary = bs.rightBoundary;
+			Point flippedFocus = new Point (-focus.Cartesianx (), focus.Cartesiany());
+			Point flippedLeftBoundary = new Point(-rightBoundary.Cartesianx(), rightBoundary.Cartesiany());
+			Point flippedRightBoundary = new Point(-leftBoundary.Cartesianx(), leftBoundary.Cartesiany());
+			Console.WriteLine ("Flipping");
+			return new BeachSection (flippedFocus, flippedLeftBoundary, flippedRightBoundary);
 		}
 	}
 }
