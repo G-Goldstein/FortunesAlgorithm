@@ -89,7 +89,6 @@ namespace FortunesAlgorithm
 			}
 			// Both sections have a left and a right edge and they're not the same. 
 			// Use a separate function for the details, which can be tail recursive.
-			Console.WriteLine ("Proper beach section");
 			return CompareProperBeachSectionToProperBeachSection (that);
 		}
 
@@ -111,7 +110,6 @@ namespace FortunesAlgorithm
 			Line verticalLineThroughLowerFocus = new Line (1, 0, -that.focus.Cartesianx());
 			Point twoFociBisectorVerticalIntersect = twoFociBisector.Intersect (verticalLineThroughLowerFocus);
 			Point edgeAndLowerFocusBisectorVerticalIntersect = edgeAndLowerFocusBisector.Intersect (verticalLineThroughLowerFocus);
-			Console.WriteLine ("Gone into tricky bit");
 			return twoFociBisectorVerticalIntersect.Cartesiany ().CompareTo (edgeAndLowerFocusBisectorVerticalIntersect.Cartesiany ());
 			throw new ApplicationException (String.Format ("Couldn't resolve comparison of beach sections {0} and {1}", this, that));
 		}
@@ -123,7 +121,6 @@ namespace FortunesAlgorithm
 			Point flippedFocus = new Point (-focus.Cartesianx (), focus.Cartesiany());
 			Point flippedLeftBoundary = new Point(-rightBoundary.Cartesianx(), rightBoundary.Cartesiany());
 			Point flippedRightBoundary = new Point(-leftBoundary.Cartesianx(), leftBoundary.Cartesiany());
-			Console.WriteLine ("Flipping");
 			return new BeachSection (flippedFocus, flippedLeftBoundary, flippedRightBoundary);
 		}
 	}

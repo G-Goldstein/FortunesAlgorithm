@@ -192,9 +192,6 @@ namespace FortunesAlgorithmTest
 		void CompareWideTopArcBeachSections(Point topPoint, Point middlePoint, Point lowerPoint) {
 			BeachSection thisSection;
 			BeachSection thatSection;
-			Console.WriteLine ("MiddlePoint x: " + middlePoint.Cartesianx ());
-			Console.WriteLine ("LowerPoint x: " + lowerPoint.Cartesianx ());
-			Console.WriteLine ("MiddlePoint x < LowerPoint x: " + (middlePoint.Cartesianx() < lowerPoint.Cartesianx()));
 			if (middlePoint.Cartesianx () < lowerPoint.Cartesianx ()) {
 				thisSection = new BeachSection (topPoint, middlePoint, lowerPoint);
 				thatSection = new BeachSection (lowerPoint, topPoint, topPoint);
@@ -255,7 +252,6 @@ namespace FortunesAlgorithmTest
 		[Test]
 		public void RightEdgePointVerticallyBetweenFociAndLeftOfBothFoci_Then_ThisIsLeftOfThat() {
 			for (int i = 0; i < 100; i++) {
-				Console.WriteLine (i);
 				float thisx = SomeValue (10);
 				float thisy = SomeValue (10);
 				float thatx = thisx - SomePositiveValue (10);
