@@ -2,7 +2,7 @@
 using System;
 using FortunesAlgorithm;
 
-namespace FortunesAlgorithmTest
+namespace Points
 {
 	[TestFixture ()]
 	public class PointTest

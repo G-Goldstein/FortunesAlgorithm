@@ -3,7 +3,7 @@ using System;
 using FortunesAlgorithm;
 using System.Collections.Generic;
 
-namespace FortunesAlgorithmTest
+namespace Lines
 {
 	[TestFixture ()]
 	public class LineTest

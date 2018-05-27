@@ -68,7 +68,29 @@ namespace FortunesAlgorithm
 		}
 
 		public int CompareTo(Point site) {
-			return focus.Cartesianx ().CompareTo (site.Cartesianx ());
+			if (PointIsOnOrLeftOfLeftEdge (site))
+				return 1;
+			if (PointIsRightOfRightEdge (site))
+				return -1;
+			return 0;
+		}
+
+		bool PointIsOnOrLeftOfLeftEdge(Point site) {
+			if (IsLeftmost())
+				return false;
+			Line leftBisector = focus.PerpendicularBisector (leftBoundary);
+			Line leftDeterminant = site.PerpendicularBisector (leftBoundary);
+			Point intercept = leftBisector.Intersect (leftDeterminant);
+			return intercept.Cartesianx() >= site.Cartesianx();
+		}
+
+		bool PointIsRightOfRightEdge(Point site) {
+			if (IsRightmost())
+				return false;
+			Line rightBisector = focus.PerpendicularBisector (rightBoundary);
+			Line rightDeterminant = site.PerpendicularBisector (rightBoundary);
+			Point intercept = rightBisector.Intersect (rightDeterminant);
+			return intercept.Cartesianx() < site.Cartesianx();
 		}
 
 		public int CompareTo(BeachSection that) {

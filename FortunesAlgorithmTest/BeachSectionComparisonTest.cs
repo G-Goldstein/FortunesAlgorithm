@@ -2,7 +2,7 @@
 using System;
 using FortunesAlgorithm;
 
-namespace FortunesAlgorithmTest
+namespace BeachSectionComparisons
 {
 	[TestFixture]
 	public class BeachSectionComparisonTest
