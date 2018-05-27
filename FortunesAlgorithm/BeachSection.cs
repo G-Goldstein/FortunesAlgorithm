@@ -41,9 +41,6 @@ namespace FortunesAlgorithm
 			if (obj is BeachSection) {
 				BeachSection that = (BeachSection)obj;
 				return CompareTo (that);
-			} else if (obj is Point) {
-				Point that = (Point)obj;
-				return CompareTo (that);
 			}
 			throw new ArgumentException (String.Format ("Can't compare objects of type BeachSection and {0}", obj.GetType()));
 		}
@@ -71,7 +68,7 @@ namespace FortunesAlgorithm
 		}
 
 		public int CompareTo(Point site) {
-			return 0; // This needs writing and testing.
+			return focus.Cartesianx ().CompareTo (site.Cartesianx ());
 		}
 
 		public int CompareTo(BeachSection that) {

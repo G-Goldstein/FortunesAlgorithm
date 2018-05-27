@@ -5,7 +5,7 @@ using FortunesAlgorithm;
 namespace FortunesAlgorithmTest
 {
 	[TestFixture]
-	public class BeachSectionTest
+	public class BeachSectionComparisonTest
 	{
 		Random rng;
 
