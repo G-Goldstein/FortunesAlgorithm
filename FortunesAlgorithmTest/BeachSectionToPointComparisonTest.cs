@@ -278,7 +278,6 @@ namespace BeachSectionsAndPoints
 			Point leftFocus = new Point (-10, 1);
 			Point rightFocus = new Point (10, 1);
 			// With these points, we get five beach sections arranged as a W with a big arc across the top, and two tighter arcs at the sides
-			// Leftmost, up to x=~-2.72, where the top arc intercepts the bottom arc
 			leftBS = new BeachSection(topFocus, null, leftFocus);
 			leftParabolaBS = new BeachSection(leftFocus, topFocus, topFocus);
 			midBS = new BeachSection (topFocus, leftFocus, rightFocus);
