@@ -258,5 +258,87 @@ namespace BeachSectionsAndPoints
 			AssertCompare.Greater (rightBeach, midPoint);
 		}
 	}
+
+	[TestFixture]
+	public class PointsUnderWShape {
+
+		BeachSection leftBS;
+		BeachSection leftParabolaBS;
+		BeachSection midBS;
+		BeachSection rightParabolaBS;
+		BeachSection rightBS;
+
+		Point pointUnderLeftParabola;
+		Point pointUnderMiddleParabola;
+		Point pointUnderRightParabola;
+
+		[SetUp]
+		public void SetUp() {
+			Point topFocus = new Point (0, 2);
+			Point leftFocus = new Point (-10, 1);
+			Point rightFocus = new Point (10, 1);
+			// With these points, we get five beach sections arranged as a W with a big arc across the top, and two tighter arcs at the sides
+			// Leftmost, up to x=~-2.72, where the top arc intercepts the bottom arc
+			leftBS = new BeachSection(topFocus, null, leftFocus);
+			leftParabolaBS = new BeachSection(leftFocus, topFocus, topFocus);
+			midBS = new BeachSection (topFocus, leftFocus, rightFocus);
+			rightParabolaBS = new BeachSection (rightFocus, topFocus, topFocus);
+			rightBS = new BeachSection (topFocus, rightFocus, null);
+			pointUnderLeftParabola = new Point (-10, 0);
+			pointUnderMiddleParabola = new Point (0, 0);
+			pointUnderRightParabola = new Point (10, 0);
+		}
+
+		[Test]
+		public void PointUnderLeftParabolaIsRightOfSomeBSs() {
+			AssertCompare.Less (leftBS, pointUnderLeftParabola);
+		}
+
+		[Test]
+		public void PointUnderLeftParabolaIsInLeftParabolaBS() {
+			AssertCompare.Intersecting (leftParabolaBS, pointUnderLeftParabola);
+		}
+
+		[Test]
+		public void PointUnderLeftParabolaIsLeftOfSomeBSs() {
+			AssertCompare.Greater (midBS, pointUnderLeftParabola);
+			AssertCompare.Greater (rightParabolaBS, pointUnderLeftParabola);
+			AssertCompare.Greater (rightBS, pointUnderLeftParabola);
+		}
+
+		[Test]
+		public void PointUnderMiddleParabolaIsRightOfSomeBSs() {
+			AssertCompare.Less (leftBS, pointUnderMiddleParabola);
+			AssertCompare.Less (leftParabolaBS, pointUnderMiddleParabola);
+		}
+
+		[Test]
+		public void PointUnderMiddleParabolaIsInMidBS() {
+			AssertCompare.Intersecting (midBS, pointUnderMiddleParabola);
+		}
+
+		[Test]
+		public void PointUnderMiddleParabolaIsLeftOfSomeBSs() {
+			AssertCompare.Greater (rightParabolaBS, pointUnderMiddleParabola);
+			AssertCompare.Greater (rightBS, pointUnderMiddleParabola);
+		}
+
+		[Test]
+		public void PointUnderRightParabolaIsRightOfSomeBSs() {
+			AssertCompare.Less (leftBS, pointUnderLeftParabola);
+			AssertCompare.Less (leftParabolaBS, pointUnderLeftParabola);
+			AssertCompare.Less (midBS, pointUnderLeftParabola);
+		}
+
+		[Test]
+		public void PointUnderRightParabolaIsInRightParabolaBS() {
+			AssertCompare.Intersecting (rightParabolaBS, pointUnderRightParabola);
+		}
+
+		[Test]
+		public void PointUnderRightParabolaIsLeftOfSomeBSs() {
+			AssertCompare.Greater (rightBS, pointUnderRightParabola);
+		}
+	}
 }
 
