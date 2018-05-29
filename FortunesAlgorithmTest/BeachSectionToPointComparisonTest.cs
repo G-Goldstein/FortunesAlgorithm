@@ -324,9 +324,9 @@ namespace BeachSectionsAndPoints
 
 		[Test]
 		public void PointUnderRightParabolaIsRightOfSomeBSs() {
-			AssertCompare.Less (leftBS, pointUnderLeftParabola);
-			AssertCompare.Less (leftParabolaBS, pointUnderLeftParabola);
-			AssertCompare.Less (midBS, pointUnderLeftParabola);
+			AssertCompare.Less (leftBS, pointUnderRightParabola);
+			AssertCompare.Less (leftParabolaBS, pointUnderRightParabola);
+			AssertCompare.Less (midBS, pointUnderRightParabola);
 		}
 
 		[Test]

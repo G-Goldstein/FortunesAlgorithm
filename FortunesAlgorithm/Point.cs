@@ -65,5 +65,9 @@ namespace FortunesAlgorithm
 		public Line PerpendicularBisector(Point that) {
 			return this.LineWith (that).PerpendicularThroughPoint (this.MidpointWith (that));
 		}
+
+		public static Point CircleCentre(Point a, Point b, Point c) {
+			return a.PerpendicularBisector(b).Intersect(a.PerpendicularBisector(c));
+		}
 	}
 }
