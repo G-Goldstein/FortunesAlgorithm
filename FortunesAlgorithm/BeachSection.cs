@@ -54,12 +54,7 @@ namespace FortunesAlgorithm
 		}
 
 		public override int GetHashCode() {
-			int hashCode = focus.GetHashCode ();
-			if (leftBoundary != null)
-				hashCode += leftBoundary.GetHashCode ();
-			if (rightBoundary != null)
-				hashCode += rightBoundary.GetHashCode ();
-			return hashCode;
+			return Hash.Triple (leftBoundary, rightBoundary, focus);
 		}
 
 		public override string ToString ()

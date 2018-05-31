@@ -46,9 +46,9 @@ namespace FortunesAlgorithm
 		public override int GetHashCode ()
 		{
 			if (x != 0) {
-				return (y / x).GetHashCode () + (z / x).GetHashCode ();
+				return Hash.Pair (y / x, z / x);
 			}
-			return (x / y).GetHashCode () + (z / y).GetHashCode ();
+			return Hash.Pair (x / y, z / y);
 		}
 
 		public override bool Equals (object obj)

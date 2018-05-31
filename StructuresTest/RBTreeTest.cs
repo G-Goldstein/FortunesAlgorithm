@@ -15,7 +15,6 @@ namespace StructuresTest
 
 		[SetUp]
 		public void SetUp() {
-			Console.WriteLine ("Setup");
 			intTree = new RBTree<int> ();
 			floatTree = new RBTree<float> ();
 			rng = new Random ();

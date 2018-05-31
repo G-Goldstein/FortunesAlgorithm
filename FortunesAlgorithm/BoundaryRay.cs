@@ -22,7 +22,7 @@ namespace FortunesAlgorithm
 
 		public override int GetHashCode ()
 		{
-			return a.GetHashCode() + b.GetHashCode();
+			return Hash.PairReversible (a, b);
 		}
 
 		public override bool Equals (object obj)

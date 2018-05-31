@@ -36,7 +36,7 @@ namespace FortunesAlgorithm
 
 		public override int GetHashCode ()
 		{
-			return x.GetHashCode () + y.GetHashCode () + z.GetHashCode();
+			return Hash.Triple (x, y, z);
 		}
 
 		public override string ToString ()
