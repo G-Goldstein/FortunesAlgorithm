@@ -21,6 +21,21 @@ namespace FortunesAlgorithm
 		{
 			return "Intersect";
 		}
+
+		public override int GetHashCode ()
+		{
+			return rayA.GetHashCode () - rayB.GetHashCode ();
+		}
+
+		public override bool Equals (object obj)
+		{
+			if (obj == null || GetType () != obj.GetType ())
+				return false;
+
+			IntersectEventPoint that = (IntersectEventPoint)obj;
+			return (this.rayA.Equals(that.rayA) && this.rayB.Equals(that.rayB)
+				|| this.rayA.Equals(that.rayB) && this.rayB.Equals(that.rayA));
+		}
 	}
 }
 

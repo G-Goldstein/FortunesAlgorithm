@@ -4,9 +4,9 @@ namespace FortunesAlgorithm
 {
 	public class BeachSection : IComparable
 	{
-		Point focus;
-		Point leftBoundary;
-		Point rightBoundary;
+		public Point focus;
+		public Point leftBoundary;
+		public Point rightBoundary;
 
 		public BeachSection (Point focus, Point leftBoundary, Point rightBoundary)
 		{

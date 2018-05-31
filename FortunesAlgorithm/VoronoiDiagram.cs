@@ -23,6 +23,8 @@ namespace FortunesAlgorithm
 			RBTree<BeachSection> beachLine = new RBTree<BeachSection> ();
 			Heap<IEventPoint> eventQueue = new Heap<IEventPoint> ((a, b) => a.Point().Cartesiany() > b.Point().Cartesiany());
 
+			HashSet<IntersectEventPoint> intersectionsToIgnore = new HashSet<IntersectEventPoint> ();
+
 			// Initialise the beachline with all points having most Y coordinate.
 			// There'll often be only one of these, but calculating their interactions 
 			// with no background beachline is more difficult so it helps to include them all at once.
@@ -47,7 +49,17 @@ namespace FortunesAlgorithm
 
 				if (eventPoint.EventType () == "Site") {
 					Point site = eventPoint.Point ();
+
 					BeachSection containingBeachSection = BeachSectionContainingPoint (beachLine, site);
+					BeachSection newBeachSectionLeft = new BeachSection (containingBeachSection.focus, containingBeachSection.leftBoundary, site);
+					BeachSection newBeachSectionCentre = new BeachSection (site, containingBeachSection.focus, containingBeachSection.focus);
+					BeachSection newBeachSectionRight = new BeachSection (containingBeachSection.focus, site, containingBeachSection.rightBoundary);
+					beachLine.Remove (containingBeachSection);
+					beachLine.Add (newBeachSectionLeft);
+					beachLine.Add (newBeachSectionCentre);
+					beachLine.Add (newBeachSectionRight);
+
+
 				}
 			}
 		}
