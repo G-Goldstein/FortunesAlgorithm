@@ -37,6 +37,12 @@ namespace Structures
 			return result;
 		}
 
+		public T Peek() {
+			if (IsEmpty())
+				throw new InvalidOperationException("Can't peek an empty heap");
+			return First ();
+		}
+
 		void BubbleUp(int index) {
 			if (!Root (index) && compare (list [index], list [Parent (index)])) {
 				Swap (index, Parent (index));

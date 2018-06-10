@@ -3,14 +3,12 @@ using System.Collections.Generic;
 
 namespace FortunesAlgorithm
 {
-	public class BoundaryRay
+	public class PerpendicularBisector
 	{
-		// The line that bisects points a and b.
-
 		Point a;
 		Point b;
 
-		public BoundaryRay (Point a, Point b)
+		public PerpendicularBisector (Point a, Point b)
 		{
 			this.a = a;
 			this.b = b;
@@ -30,7 +28,7 @@ namespace FortunesAlgorithm
 			if (obj == null || GetType () != obj.GetType ())
 				return false;
 
-			BoundaryRay that = (BoundaryRay)obj;
+			PerpendicularBisector that = (PerpendicularBisector)obj;
 			return Line ().Equals (that.Line ());
 		}
 

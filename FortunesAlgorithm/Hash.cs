@@ -21,6 +21,12 @@ namespace FortunesAlgorithm
 		public static int Triple(object a, object b, object c) {
 			return Pair (Pair (a, b), c);
 		}
+
+		public static int TripleSet(object a, object b, object c) {
+			unchecked {
+				return a.GetHashCode () + b.GetHashCode () + c.GetHashCode ();
+			}
+		}
 	}
 }
 

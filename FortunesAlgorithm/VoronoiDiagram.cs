@@ -21,9 +21,7 @@ namespace FortunesAlgorithm
 			IEnumerable<Point> otherPoints = distinctPoints.Where (p => p.Cartesiany() < mostY);
 
 			RBTree<BeachSection> beachLine = new RBTree<BeachSection> ();
-			Heap<IEventPoint> eventQueue = new Heap<IEventPoint> ((a, b) => a.Point().Cartesiany() > b.Point().Cartesiany());
-
-			HashSet<IntersectEventPoint> intersectionsToIgnore = new HashSet<IntersectEventPoint> ();
+			EventQueue eventQueue = new EventQueue();
 
 			// Initialise the beachline with all points having most Y coordinate.
 			// There'll often be only one of these, but calculating their interactions 
@@ -46,9 +44,11 @@ namespace FortunesAlgorithm
 
 			while (!eventQueue.IsEmpty()) {
 				IEventPoint eventPoint = eventQueue.Pop ();
-
+				float sweepLineY = eventPoint.Point ().Cartesiany ();
 				if (eventPoint.EventType () == "Site") {
 					Point site = eventPoint.Point ();
+					VoronoiCell cell = new VoronoiCell (site);
+					cells.Add (cell);
 
 					BeachSection containingBeachSection = BeachSectionContainingPoint (beachLine, site);
 					BeachSection newBeachSectionLeft = new BeachSection (containingBeachSection.focus, containingBeachSection.leftBoundary, site);
@@ -58,8 +58,14 @@ namespace FortunesAlgorithm
 					beachLine.Add (newBeachSectionLeft);
 					beachLine.Add (newBeachSectionCentre);
 					beachLine.Add (newBeachSectionRight);
+					eventQueue.Remove (new IntersectEventPoint(containingBeachSection.focus, containingBeachSection.leftBoundary, containingBeachSection.rightBoundary), sweepLineY);
+					eventQueue.Add(new IntersectEventPoint(containingBeachSection.focus, site, containingBeachSection.leftBoundary), sweepLineY);
+					eventQueue.Add(new IntersectEventPoint(containingBeachSection.focus, site, containingBeachSection.rightBoundary), sweepLineY);
+					// Record new edges
+				} else { // EventType = "Intersect"
+					IntersectEventPoint intersectEventPoint = (IntersectEventPoint)eventPoint;
 
-
+					// Record new edges
 				}
 			}
 		}

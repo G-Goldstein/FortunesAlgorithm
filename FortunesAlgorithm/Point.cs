@@ -69,5 +69,11 @@ namespace FortunesAlgorithm
 		public static Point CircleCentre(Point a, Point b, Point c) {
 			return a.PerpendicularBisector(b).Intersect(a.PerpendicularBisector(c));
 		}
+
+		public float DistanceFrom(Point that) {
+			float xDistSquared = (float)Math.Pow(this.Cartesianx () - that.Cartesianx (), 2);
+			float yDistSquared = (float)Math.Pow(this.Cartesiany () - that.Cartesiany (), 2);
+			return (float)Math.Sqrt (xDistSquared + yDistSquared);
+		}
 	}
 }

@@ -36,7 +36,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="VoronoiCell.cs" />
-    <Compile Include="BoundaryRay.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="VoronoiDiagram.cs" />
     <Compile Include="IEventPoint.cs" />
@@ -45,6 +44,8 @@
     <Compile Include="IntersectEventPoint.cs" />
     <Compile Include="BeachSection.cs" />
     <Compile Include="Hash.cs" />
+    <Compile Include="PerpendicularBisector.cs" />
+    <Compile Include="EventQueue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

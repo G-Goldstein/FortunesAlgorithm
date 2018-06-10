@@ -7,11 +7,15 @@ namespace FortunesAlgorithm
 	public class VoronoiCell
 	{
 		Point site;
-		List<Point> vertices;
-		public VoronoiCell (Point site, IEnumerable<Point> vertices)
+		List<Point> borderSites;
+		public VoronoiCell (Point site)
 		{
 			this.site = site;
-			this.vertices = vertices.ToList ();
+			this.borderSites = new List<Point> ();
+		}
+
+		public void AddBorder(Point border) {
+			borderSites.Add (border);
 		}
 	}
 }
