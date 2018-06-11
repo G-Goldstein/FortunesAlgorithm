@@ -5,14 +5,16 @@ namespace FortunesAlgorithm
 {
 	public class IntersectEventPoint : IEventPoint {
 
+		public BeachSection consumedBeachSection;
 		Point a;
 		Point b;
 		Point c;
 
-		public IntersectEventPoint(Point a, Point b, Point c) {
-			this.a = a;
-			this.b = b;
-			this.c = c;
+		public IntersectEventPoint(BeachSection consumedBeachSection) {
+			this.consumedBeachSection = consumedBeachSection;
+			this.a = consumedBeachSection.leftBoundary;
+			this.b = consumedBeachSection.focus;
+			this.c = consumedBeachSection.rightBoundary;
 		}
 
 		public Point Point ()

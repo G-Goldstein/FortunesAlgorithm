@@ -7,13 +7,15 @@ namespace FortunesAlgorithm
 {
 	public class VoronoiDiagram
 	{
-		HashSet<VoronoiCell> cells;
+		Dictionary<Point, VoronoiCell> cells;
 
 		public VoronoiDiagram(IEnumerable<Point> points)
 		{
 			if (points.Count () == 0)
 				throw new System.ArgumentException ("No points provided");
-			
+
+			cells = new Dictionary<Point, VoronoiCell> ();
+
 			// And this is where we do Fortune's algorithm. We'll start at the top of the field and work down.
 			HashSet<Point> distinctPoints = new HashSet<Point>(points);
 			List<Point> highestPoints = FindHighestPoints (distinctPoints).OrderBy (p => p.Cartesianx ()).ToList();
@@ -48,7 +50,7 @@ namespace FortunesAlgorithm
 				if (eventPoint.EventType () == "Site") {
 					Point site = eventPoint.Point ();
 					VoronoiCell cell = new VoronoiCell (site);
-					cells.Add (cell);
+					cells [site] = cell;
 
 					BeachSection containingBeachSection = BeachSectionContainingPoint (beachLine, site);
 					BeachSection newBeachSectionLeft = new BeachSection (containingBeachSection.focus, containingBeachSection.leftBoundary, site);
@@ -58,10 +60,17 @@ namespace FortunesAlgorithm
 					beachLine.Add (newBeachSectionLeft);
 					beachLine.Add (newBeachSectionCentre);
 					beachLine.Add (newBeachSectionRight);
-					eventQueue.Remove (new IntersectEventPoint(containingBeachSection.focus, containingBeachSection.leftBoundary, containingBeachSection.rightBoundary), sweepLineY);
-					eventQueue.Add(new IntersectEventPoint(containingBeachSection.focus, site, containingBeachSection.leftBoundary), sweepLineY);
-					eventQueue.Add(new IntersectEventPoint(containingBeachSection.focus, site, containingBeachSection.rightBoundary), sweepLineY);
-					// Record new edges
+
+					IntersectEventPoint leftIntersect = new IntersectEventPoint (newBeachSectionLeft);
+					IntersectEventPoint rightIntersect = new IntersectEventPoint (newBeachSectionRight);
+					eventQueue.Remove (new IntersectEventPoint(containingBeachSection), sweepLineY);
+					eventQueue.Add(leftIntersect, sweepLineY);
+					if (!leftIntersect.Equals(rightIntersect))
+						eventQueue.Add(rightIntersect, sweepLineY);
+					
+					cells [site].AddBorder (containingBeachSection.focus);
+					cells [containingBeachSection.focus].AddBorder (site);
+
 				} else { // EventType = "Intersect"
 					IntersectEventPoint intersectEventPoint = (IntersectEventPoint)eventPoint;
 
