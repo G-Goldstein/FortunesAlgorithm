@@ -37,6 +37,18 @@ namespace Structures
 			while (root.parent != null)
 				root = root.parent;
 		}
+
+		public T Successor(T value) {
+			return GetNode (value).Successor ();
+		}
+
+		public T Predecessor(T value) {
+			return GetNode (value).Predecessor ();
+		}
+
+		RBBranch<T> GetNode(T value) {
+			return root.GetNode (value);
+		}
 	}
 }
 

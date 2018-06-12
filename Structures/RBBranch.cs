@@ -39,6 +39,16 @@ namespace Structures
 				left.Remove (t);
 		}
 
+		public override RBBranch<T> GetNode (T t) {
+			int compareResult = t.CompareTo (value);
+			if (compareResult == 0)
+				return this;
+			else if (compareResult > 0)
+				return right.GetNode (t);
+			else
+				return left.GetNode (t);
+		}
+
 		public void RotateLeft() {
 			if (!(right is RBBranch<T>))
 				throw new InvalidOperationException ("Can't rotate left a branch with a right leaf");
@@ -126,6 +136,13 @@ namespace Structures
 			return branch.MinBranch();
 		}
 
+		RBBranch<T> MaxBranch() {
+			if (!(right is RBBranch<T>))
+				return this;
+			RBBranch<T> branch = (RBBranch<T>)right;
+			return branch.MinBranch();
+		}
+
 		public void Delete() {
 			RBBranch<T> minBranch = this;
 			if (right is RBBranch<T>) {
@@ -160,6 +177,38 @@ namespace Structures
 				else
 					child.DeleteRepair ();
 			}
+		}
+
+		public T Successor() {
+			if (right is RBBranch<T>) {
+				RBBranch<T> branch = (RBBranch<T>)right;
+				return branch.MinBranch().value;
+			}
+			return NextRightParent ().value;
+		}
+
+		public T Predecessor() {
+			if (left is RBBranch<T>) {
+				RBBranch<T> branch = (RBBranch<T>)left;
+				return branch.MaxBranch().value;
+			}
+			return NextLeftParent ().value;
+		}
+
+		RBBranch<T> NextLeftParent() {
+			if (parent == null)
+				throw new ArgumentOutOfRangeException ("Asked for predecessor of element with least value");
+			if (this == parent.right)
+				return parent;
+			return parent.NextLeftParent ();
+		}
+
+		RBBranch<T> NextRightParent() {
+			if (parent == null)
+				throw new ArgumentOutOfRangeException ("Asked for successor of element with greatest value");
+			if (this == parent.left)
+				return parent;
+			return parent.NextRightParent ();
 		}
 	}
 }

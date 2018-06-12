@@ -9,6 +9,7 @@ namespace Structures
 
 		public abstract void Insert (RBBranch<T> newNode);
 		public abstract void Remove (T t);
+		public abstract RBBranch<T> GetNode(T t);
 
 		protected RBBranch<T> Grandparent() {
 			if (parent == null)

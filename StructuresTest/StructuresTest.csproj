@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="HeapTest.cs" />
     <Compile Include="RBTreeTest.cs" />
+    <Compile Include="RBTreeNeighbourTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -24,6 +24,10 @@ namespace Structures
 		public override void Remove (T t) {
 			throw new ArgumentException (string.Format("Value {0} to remove not found", t));
 		}
+
+		public override RBBranch<T> GetNode(T t) {
+			throw new ArgumentException (string.Format ("Value {0} not found in tree", t));
+		}
 	}
 }
 
