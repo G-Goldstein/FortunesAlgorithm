@@ -30,13 +30,7 @@ namespace Structures
 		}
 
 		public override void Remove (T t) {
-			int compareResult = t.CompareTo (value);
-			if (compareResult == 0)
-				Delete ();
-			else if (compareResult > 0)
-				right.Remove (t);
-			else
-				left.Remove (t);
+			GetNode (t).Delete ();
 		}
 
 		public override RBBranch<T> GetNode (T t) {
