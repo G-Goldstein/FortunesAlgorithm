@@ -102,5 +102,70 @@ namespace RBTreeNeighbourTests
 			twoElementTree.Predecessor (absentElement);
 		}
 	}
+
+	[TestFixture]
+	public class ManyElements {
+
+		RBTree<int> tree;
+
+		[SetUp]
+		public void SetUp() {
+			tree = new RBTree<int> ();
+			tree.Add (0);
+			tree.Add (1);
+			tree.Add (2);
+			tree.Add (8);
+			tree.Add (7);
+			tree.Add (6);
+			tree.Add (10);
+			tree.Add (11);
+			tree.Add (9);
+			tree.Add (5);
+			tree.Add (3);
+			tree.Add (4);
+		}
+
+		[Test]
+		public void LeastElementHasNoPredecessor() {
+			Assert.Throws<ArgumentOutOfRangeException> (GetLeastElementPredecessor);
+		}
+
+		public void GetLeastElementPredecessor() {
+			tree.Predecessor (0);
+		}
+
+		[Test]
+		public void GreatestElementHasNoSuccessor() {
+			Assert.Throws<ArgumentOutOfRangeException> (GetGreatestElementSuccessor);
+		}
+
+		public void GetGreatestElementSuccessor() {
+			tree.Successor (11);
+		}
+
+		[Test]
+		public void LeastElementSuccessor() {
+			Assert.AreEqual (1, tree.Successor (0));
+		}
+
+		[Test]
+		public void GreatestElementPredecessor() {
+			Assert.AreEqual (10, tree.Predecessor (11));
+		}
+
+		[Test]
+		public void IntermediateElementSuccessors() {
+			for (int i = 1; i < 11; i++) {
+				Assert.AreEqual (i + 1, tree.Successor (i));
+			}
+		}
+
+		[Test]
+		public void IntermediateElementPredecessors() {
+			for (int i = 1; i < 11; i++) {
+				Assert.AreEqual (i - 1, tree.Predecessor (i));
+			}
+		}
+	}
 }
 
