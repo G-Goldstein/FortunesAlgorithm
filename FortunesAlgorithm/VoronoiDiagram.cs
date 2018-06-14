@@ -44,7 +44,7 @@ namespace FortunesAlgorithm
 			foreach (Point point in otherPoints)
 				eventQueue.Add (new SiteEventPoint (point));
 
-			while (!eventQueue.IsEmpty()) {
+			while (!eventQueue.IsEmpty()) { // This loop needs tidying up. There's lots of repetition and similar ideas within it, and they could do with factoring out. It may also create degenerate circle events at the moment.
 				IEventPoint eventPoint = eventQueue.Pop ();
 				float sweepLineY = eventPoint.Point ().Cartesiany ();
 				if (eventPoint.EventType () == "Site") {
@@ -74,7 +74,26 @@ namespace FortunesAlgorithm
 				} else { // EventType = "Intersect"
 					IntersectEventPoint intersectEventPoint = (IntersectEventPoint)eventPoint;
 
-					// Record new edges
+					BeachSection consumedBeachSection = intersectEventPoint.consumedBeachSection;
+					BeachSection leftBeachSection = beachLine.Predecessor (consumedBeachSection);
+					BeachSection rightBeachSection = beachLine.Successor (consumedBeachSection);
+					BeachSection newLeftBeachSection = new BeachSection (leftBeachSection.focus, leftBeachSection.leftBoundary, rightBeachSection.focus);
+					BeachSection newRightBeachSection = new BeachSection (rightBeachSection.focus, leftBeachSection.focus, rightBeachSection.rightBoundary);
+					beachLine.Remove (consumedBeachSection);
+					beachLine.Remove (leftBeachSection);
+					beachLine.Remove (rightBeachSection);
+					beachLine.Add (newLeftBeachSection);
+					beachLine.Add (newRightBeachSection);
+
+					eventQueue.Remove (new IntersectEventPoint (leftBeachSection), sweepLineY);
+					if (!leftBeachSection.Equals(rightBeachSection))
+						eventQueue.Remove (new IntersectEventPoint (rightBeachSection), sweepLineY);
+					eventQueue.Add (new IntersectEventPoint (newLeftBeachSection), sweepLineY);
+					if (!newLeftBeachSection.Equals(newRightBeachSection))
+						eventQueue.Add (new IntersectEventPoint (newRightBeachSection), sweepLineY);
+
+					cells [newLeftBeachSection.focus].AddBorder (newRightBeachSection.focus);
+					cells [newRightBeachSection.focus].AddBorder (newLeftBeachSection.focus);
 				}
 			}
 		}
