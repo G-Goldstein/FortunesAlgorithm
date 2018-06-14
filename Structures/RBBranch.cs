@@ -184,7 +184,6 @@ namespace Structures
 		public T Predecessor() {
 			if (left is RBBranch<T>) {
 				RBBranch<T> branch = (RBBranch<T>)left;
-				Console.WriteLine(String.Format ("I am {0} and my left is {1}. My Left's MaxBranch is {2}", value, branch.value, branch.MaxBranch().value));
 				return branch.MaxBranch().value;
 			}
 			return NextLeftParent ().value;
