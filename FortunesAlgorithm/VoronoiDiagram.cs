@@ -39,6 +39,7 @@ namespace FortunesAlgorithm
 					right = highestPoints [i + 1];
 				BeachSection bs = new BeachSection (focus, left, right);
 				beachLine.Add (bs);
+				cells [focus] = new VoronoiCell(focus);
 			}
 
 			foreach (Point point in otherPoints)
@@ -100,7 +101,7 @@ namespace FortunesAlgorithm
 
 		HashSet<Point> FindHighestPoints(HashSet<Point> points) {
 			HashSet<Point> highestPoints = new HashSet<Point> ();
-			float mostY = highestPoints.First ().Cartesiany();
+			float mostY = points.First ().Cartesiany();
 			foreach (Point point in points) {
 				if (point.Cartesiany() == mostY)
 					highestPoints.Add (point);
@@ -123,6 +124,10 @@ namespace FortunesAlgorithm
 				if (compareResult < 0)
 					candidate = (RBBranch<BeachSection>)candidate.right;
 			}
+		}
+
+		public IEnumerable<VoronoiCell> Cells() {
+			return cells.Values;
 		}
 
 	}

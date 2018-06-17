@@ -17,6 +17,14 @@ namespace FortunesAlgorithm
 		public void AddBorder(Point border) {
 			borderSites.Add (border);
 		}
+
+		public Point Site() {
+			return site;
+		}
+
+		public IEnumerable<Point> Borders() {
+			return borderSites;
+		}
 	}
 }
 

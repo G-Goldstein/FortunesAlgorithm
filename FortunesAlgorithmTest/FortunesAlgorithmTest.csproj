@@ -42,6 +42,9 @@
     <Compile Include="BoundaryRayTest.cs" />
     <Compile Include="BeachSectionComparisonTest.cs" />
     <Compile Include="BeachSectionToPointComparisonTest.cs" />
+    <Compile Include="FortunesAlgorithm_NoSites.cs" />
+    <Compile Include="FortunesAlgorithm_OneSite.cs" />
+    <Compile Include="FortunesAlgorithm_TwoSitesUnaligned.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
