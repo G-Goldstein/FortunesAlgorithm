@@ -23,8 +23,9 @@ namespace FortunesAlgorithm
 			if (intersectionsToIgnore.Contains (next)) {
 				Pop ();
 				intersectionsToIgnore.Remove (next);
-			}
-			return IsEmpty ();
+                return IsEmpty();
+            }
+            return false;
 		}
 
 		public void Add(IEventPoint eventPoint) {

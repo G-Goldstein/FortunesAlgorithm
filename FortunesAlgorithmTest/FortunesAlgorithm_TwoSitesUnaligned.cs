@@ -15,7 +15,6 @@ namespace FortunesAlgorithm
 
 		[SetUp]
 		public void SetUp() {
-			Console.WriteLine ("Got here");
 			siteA = new Point (4, -5);
 			siteB = new Point (3, 2);
 			voronoi = new VoronoiDiagram(new List<Point>{siteA, siteB});
