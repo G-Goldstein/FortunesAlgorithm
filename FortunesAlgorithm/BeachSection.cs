@@ -104,8 +104,14 @@ namespace FortunesAlgorithm
 			if (this.IsRightmost () || that.IsLeftmost ())
 				return 1;
 			if (this.focus.Cartesiany () == that.focus.Cartesiany ()) {
-				return this.focus.Cartesianx ().CompareTo (that.focus.Cartesianx ());
-			}
+                int focusComparison = this.focus.Cartesianx ().CompareTo (that.focus.Cartesianx ());
+                if (focusComparison != 0)
+                    return focusComparison;
+                int edgeXComparison = this.leftBoundary.Cartesianx().CompareTo(that.leftBoundary.Cartesianx());
+                if (edgeXComparison != 0)
+                    return edgeXComparison;
+                return -this.leftBoundary.Cartesiany().CompareTo(that.leftBoundary.Cartesiany());
+            }
 			// Both sections have a left and a right edge and they're not the same. 
 			// Use a separate function for the details, which can be tail recursive.
 			return CompareProperBeachSectionToProperBeachSection (that);

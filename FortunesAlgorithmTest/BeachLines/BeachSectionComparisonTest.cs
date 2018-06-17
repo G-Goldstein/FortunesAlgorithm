@@ -286,6 +286,27 @@ namespace BeachSectionComparisons
 			}
 		}
 
+        [Test]
+        public void BeachSectionsWithSameFocusAreComparedByTheirEdges()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                Point focus = RandomPoint();
+                Point leftA = RandomPoint();
+                Point leftB = RandomPoint();
+                while (leftA == focus)
+                    leftA = RandomPoint();
+                while (leftB == focus || leftB == leftA)
+                    leftB = RandomPoint();
+                BeachSection beachA = new BeachSection(focus, leftA, RandomPoint());
+                BeachSection beachB = new BeachSection(focus, leftB, RandomPoint());
+                if (leftA.Cartesianx() > leftB.Cartesianx())
+                    AssertGreater(beachA, beachB);
+                else if (leftA.Cartesianx() < leftB.Cartesianx())
+                    AssertGreater(beachB, beachA);
+            }
+        }
+
 		[Test]
 		public void ThisLeftEdgeDirectlyLeftOfThisFocus_Then_ThisIsLeftOfThat() {
 			for (int i = 0; i < 100; i++) {

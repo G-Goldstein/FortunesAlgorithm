@@ -36,16 +36,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FortunesAlgorithm\ThreeSitesUnaligned.cs" />
+    <Compile Include="FortunesAlgorithmBasics\OneSiteDuplicated.cs" />
+    <Compile Include="FortunesAlgorithmEdgeCases\VerticalRowOfSites.cs" />
+    <Compile Include="FortunesAlgorithmEdgeCases\HorizontalRowOfSites.cs" />
+    <Compile Include="FortunesAlgorithmBasics\ThreeSitesUnaligned.cs" />
     <Compile Include="Geometry\PointTest.cs" />
     <Compile Include="Geometry\LineTest.cs" />
     <Compile Include="Geometry\Vector3Test.cs" />
     <Compile Include="Geometry\BoundaryRayTest.cs" />
     <Compile Include="BeachLines\BeachSectionComparisonTest.cs" />
     <Compile Include="BeachLines\BeachSectionToPointComparisonTest.cs" />
-    <Compile Include="FortunesAlgorithm\NoSites.cs" />
-    <Compile Include="FortunesAlgorithm\OneSite.cs" />
-    <Compile Include="FortunesAlgorithm\TwoSitesUnaligned.cs" />
+    <Compile Include="FortunesAlgorithmBasics\NoSites.cs" />
+    <Compile Include="FortunesAlgorithmBasics\OneSite.cs" />
+    <Compile Include="FortunesAlgorithmBasics\TwoSitesUnaligned.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

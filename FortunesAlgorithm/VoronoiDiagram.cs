@@ -33,13 +33,21 @@ namespace FortunesAlgorithm
 				Point left = null;
 				Point right = null;
 				Point focus = highestPoints [i];
-				if (i > 0)
-					left = highestPoints [i - 1];
-				if (i + 1 < highestPoints.Count)
-					right = highestPoints [i + 1];
-				BeachSection bs = new BeachSection (focus, left, right);
+                cells[focus] = new VoronoiCell(focus);
+                if (i > 0)
+                {
+                    left = highestPoints [i - 1];
+                    cells[focus].AddBorder(left);
+                }
+
+                if (i + 1 < highestPoints.Count)
+                {
+                    right = highestPoints [i + 1];
+                    cells[focus].AddBorder(right);
+                }
+
+                BeachSection bs = new BeachSection (focus, left, right);
 				beachLine.Add (bs);
-				cells [focus] = new VoronoiCell(focus);
 			}
 
 			foreach (Point point in otherPoints)
