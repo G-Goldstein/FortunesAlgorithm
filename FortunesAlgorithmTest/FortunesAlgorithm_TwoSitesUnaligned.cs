@@ -33,11 +33,6 @@ namespace FortunesAlgorithm
 				Assert.AreEqual (1, cell.Borders ().Count ());
 			}
 		}
-
-		[Test]
-		public void ResultingDiagramsCellHasNoBorders() {
-			Assert.AreEqual (0, voronoi.Cells ().First ().Borders ().Count ());
-		}
 	}
 }
 

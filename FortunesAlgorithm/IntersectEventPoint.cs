@@ -10,7 +10,7 @@ namespace FortunesAlgorithm
 		Point b;
 		Point c;
 
-		public IntersectEventPoint(BeachSection consumedBeachSection) {
+		IntersectEventPoint(BeachSection consumedBeachSection) {
 			this.consumedBeachSection = consumedBeachSection;
 			this.a = consumedBeachSection.leftBoundary;
 			this.b = consumedBeachSection.focus;
@@ -52,6 +52,22 @@ namespace FortunesAlgorithm
 			List<Point> thisPoints = new List<Point> { a, b, c };
 			return thisPoints.Contains (that.a) && thisPoints.Contains (that.b) && thisPoints.Contains (that.c);
 		}
+
+        public static HashSet<IntersectEventPoint> FromBeachSections(IEnumerable<BeachSection> beachSections)
+        {
+            HashSet<IntersectEventPoint> set = new HashSet<IntersectEventPoint>();
+            foreach (BeachSection bs in beachSections)
+            {
+                if (!bs.IsLeftmost() && !bs.IsRightmost())
+                {
+                    Line lineA = bs.leftBoundary.LineWith(bs.rightBoundary);
+                    Line lineB = bs.leftBoundary.LineWith(bs.focus);
+                    if (!lineA.Colinear(lineB))
+                        set.Add(new IntersectEventPoint(bs));
+                }
+            }
+            return set;
+        }
 	}
 }
 

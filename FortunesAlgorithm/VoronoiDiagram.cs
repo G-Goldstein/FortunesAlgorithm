@@ -61,15 +61,14 @@ namespace FortunesAlgorithm
 					beachLine.Add (newBeachSectionLeft);
 					beachLine.Add (newBeachSectionCentre);
 					beachLine.Add (newBeachSectionRight);
+                    
+                    foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { newBeachSectionLeft, newBeachSectionRight }))
+                        eventQueue.Add(iep, sweepLineY);
 
-					IntersectEventPoint leftIntersect = new IntersectEventPoint (newBeachSectionLeft);
-					IntersectEventPoint rightIntersect = new IntersectEventPoint (newBeachSectionRight);
-					eventQueue.Remove (new IntersectEventPoint(containingBeachSection), sweepLineY);
-					eventQueue.Add(leftIntersect, sweepLineY);
-					if (!leftIntersect.Equals(rightIntersect))
-						eventQueue.Add(rightIntersect, sweepLineY);
-					
-					cells [site].AddBorder (containingBeachSection.focus);
+                    foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { containingBeachSection }))
+                        eventQueue.Remove(iep, sweepLineY);
+
+                    cells [site].AddBorder (containingBeachSection.focus);
 					cells [containingBeachSection.focus].AddBorder (site);
 
 				} else { // EventType = "Intersect"
@@ -86,14 +85,13 @@ namespace FortunesAlgorithm
 					beachLine.Add (newLeftBeachSection);
 					beachLine.Add (newRightBeachSection);
 
-					eventQueue.Remove (new IntersectEventPoint (leftBeachSection), sweepLineY);
-					if (!leftBeachSection.Equals(rightBeachSection))
-						eventQueue.Remove (new IntersectEventPoint (rightBeachSection), sweepLineY);
-					eventQueue.Add (new IntersectEventPoint (newLeftBeachSection), sweepLineY);
-					if (!newLeftBeachSection.Equals(newRightBeachSection))
-						eventQueue.Add (new IntersectEventPoint (newRightBeachSection), sweepLineY);
+                    foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { leftBeachSection, rightBeachSection }))
+                        eventQueue.Remove(iep, sweepLineY);
 
-					cells [newLeftBeachSection.focus].AddBorder (newRightBeachSection.focus);
+                    foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { newLeftBeachSection, newRightBeachSection }))
+                        eventQueue.Add(iep, sweepLineY);
+
+                    cells [newLeftBeachSection.focus].AddBorder (newRightBeachSection.focus);
 					cells [newRightBeachSection.focus].AddBorder (newLeftBeachSection.focus);
 				}
 			}
