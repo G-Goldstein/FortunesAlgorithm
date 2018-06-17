@@ -7,3 +7,5 @@
 *.resources
 
 **/Debug
+
+.vs/
