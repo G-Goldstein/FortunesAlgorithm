@@ -21,7 +21,7 @@ namespace FortunesAlgorithm
 		}
 
 		[Test]
-		public void ResultingDiagramHasTwoSites ()
+		public void ResultingDiagramHasTwoCells ()
 		{
 			Assert.AreEqual (2, voronoi.Cells ().Count ());
 		}
@@ -33,6 +33,24 @@ namespace FortunesAlgorithm
 				Assert.AreEqual (1, cell.Borders ().Count ());
 			}
 		}
+
+        [Test]
+        public void EachCellsBorderIsTheOtherSite()
+        {
+            Dictionary<Point, Point> siteToBorderMap = new Dictionary<Point, Point>();
+            Dictionary<Point, Point> expectedBorderMap = new Dictionary<Point, Point>();
+
+            expectedBorderMap[siteA] = siteB;
+            expectedBorderMap[siteB] = siteA;
+
+            List<VoronoiCell> cells = voronoi.Cells().ToList();
+            foreach (VoronoiCell cell in cells)
+            {
+                siteToBorderMap[cell.Site()] = cell.Borders().First();
+            }
+
+            Assert.AreEqual(expectedBorderMap, siteToBorderMap);
+        }
 	}
 }
 

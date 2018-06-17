@@ -19,7 +19,7 @@ namespace FortunesAlgorithm
 		}
 
 		[Test]
-		public void ResultingDiagramHasOneSite ()
+		public void ResultingDiagramHasOneCell ()
 		{
 			Assert.AreEqual (1, voronoi.Cells ().Count ());
 		}

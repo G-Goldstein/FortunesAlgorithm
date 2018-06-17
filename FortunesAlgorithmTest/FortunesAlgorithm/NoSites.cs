@@ -11,14 +11,14 @@ namespace FortunesAlgorithm
 	{
 		VoronoiDiagram voronoi;
 
-		public void CreateVoroniDiagramFromNoPoints() {
+		public void CreateVoronoiDiagramFromNoPoints() {
 			voronoi = new VoronoiDiagram(new List<Point>());
 		}
 
 		[Test]
 		public void ZeroPointVoronoiDiagramIsInvalid ()
 		{
-			Assert.Throws<ArgumentException> (CreateVoroniDiagramFromNoPoints);
+			Assert.Throws<ArgumentException> (CreateVoronoiDiagramFromNoPoints);
 		}
 	}
 }

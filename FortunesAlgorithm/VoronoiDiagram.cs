@@ -45,7 +45,7 @@ namespace FortunesAlgorithm
 			foreach (Point point in otherPoints)
 				eventQueue.Add (new SiteEventPoint (point));
 
-			while (!eventQueue.IsEmpty()) { // This loop needs tidying up. There's lots of repetition and similar ideas within it, and they could do with factoring out. It may also create degenerate circle events at the moment.
+			while (!eventQueue.IsEmpty()) { // This loop needs tidying up. There's lots of repetition and similar ideas within it, and they could do with factoring out.
 				IEventPoint eventPoint = eventQueue.Pop ();
 				float sweepLineY = eventPoint.Point ().Cartesiany ();
 				if (eventPoint.EventType () == "Site") {
@@ -89,7 +89,8 @@ namespace FortunesAlgorithm
                         eventQueue.Remove(iep, sweepLineY);
 
                     foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { newLeftBeachSection, newRightBeachSection }))
-                        eventQueue.Add(iep, sweepLineY);
+                        if (!iep.Equals(intersectEventPoint))
+                            eventQueue.Add(iep, sweepLineY);
 
                     cells [newLeftBeachSection.focus].AddBorder (newRightBeachSection.focus);
 					cells [newRightBeachSection.focus].AddBorder (newLeftBeachSection.focus);
