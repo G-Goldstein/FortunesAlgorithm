@@ -2,10 +2,10 @@
 using System;
 using FortunesAlgorithm;
 
-namespace Points
+namespace Geometry
 {
 	[TestFixture ()]
-	public class PointTest
+	public class PointTests
 	{
 		[Test ()]
 		public void Equals()

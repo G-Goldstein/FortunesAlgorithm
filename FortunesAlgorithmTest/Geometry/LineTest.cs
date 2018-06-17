@@ -3,10 +3,10 @@ using System;
 using FortunesAlgorithm;
 using System.Collections.Generic;
 
-namespace Lines
+namespace Geometry
 {
 	[TestFixture ()]
-	public class LineTest
+	public class LineTests
 	{
 
 		Line aLine1;

@@ -37,12 +37,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FortunesAlgorithm\ThreeSitesUnaligned.cs" />
-    <Compile Include="PointTest.cs" />
-    <Compile Include="LineTest.cs" />
-    <Compile Include="Vector3Test.cs" />
-    <Compile Include="BoundaryRayTest.cs" />
-    <Compile Include="BeachSectionComparisonTest.cs" />
-    <Compile Include="BeachSectionToPointComparisonTest.cs" />
+    <Compile Include="Geometry\PointTest.cs" />
+    <Compile Include="Geometry\LineTest.cs" />
+    <Compile Include="Geometry\Vector3Test.cs" />
+    <Compile Include="Geometry\BoundaryRayTest.cs" />
+    <Compile Include="BeachLines\BeachSectionComparisonTest.cs" />
+    <Compile Include="BeachLines\BeachSectionToPointComparisonTest.cs" />
     <Compile Include="FortunesAlgorithm\NoSites.cs" />
     <Compile Include="FortunesAlgorithm\OneSite.cs" />
     <Compile Include="FortunesAlgorithm\TwoSitesUnaligned.cs" />

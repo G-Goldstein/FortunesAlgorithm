@@ -3,13 +3,13 @@ using System;
 using FortunesAlgorithm;
 using System.Collections.Generic;
 
-namespace BoundaryRays
+namespace Geometry
 {
 	[TestFixture]
-	public class BoundaryRayTest
+	public class PerpendicularBisectors
 	{
 		[Test]
-		public void Line ()
+		public void PerpendicularBisectorsAreGeneratedCorrectly ()
 		{
 			PerpendicularBisector aBR = new PerpendicularBisector (new Point (0, 0), new Point (1, 1));
 			Line aL = new Line (1, 1, -1);

@@ -3,10 +3,10 @@ using System;
 using FortunesAlgorithm;
 using System.Collections.Generic;
 
-namespace Vectors
+namespace Geometry
 {
 	[TestFixture]
-	public class Vector3Test
+	public class Vector3Tests
 	{
 		[Test]
 		public void Colinear ()
