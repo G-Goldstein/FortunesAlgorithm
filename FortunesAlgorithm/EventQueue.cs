@@ -21,8 +21,8 @@ namespace FortunesAlgorithm
 				return true;
 			IEventPoint next = eventQueue.Peek ();
 			if (intersectionsToIgnore.Contains (next)) {
-				Pop ();
-				intersectionsToIgnore.Remove (next);
+                eventQueue.Pop();
+                intersectionsToIgnore.Remove(next);
                 return IsEmpty();
             }
             return false;

@@ -124,10 +124,10 @@ namespace FortunesAlgorithm
 				return -FlippedHorizontally ().CompareProperBeachSectionToProperBeachSection (that.FlippedHorizontally ());
 			if (this.leftBoundary.Cartesiany () >= this.focus.Cartesiany()) // If our edge point is above both foci
 				return -1;
-			if (this.leftBoundary.Cartesiany () < that.focus.Cartesiany ()) // If our edge point is below both foci
+            if (this.leftBoundary.Cartesianx() >= that.focus.Cartesianx()) // If our left edge is to the right of the lower focus
+                return 1;
+            if (this.leftBoundary.Cartesiany () <= that.focus.Cartesiany ()) // If our edge point is below both foci, or level with the lower
 				return this.leftBoundary.Cartesianx().CompareTo(that.focus.Cartesianx());
-			if (this.leftBoundary.Cartesianx() >= that.focus.Cartesianx ()) // If our left edge is to the right of the lower focus
-				return 1;
 			// Final case, if our perpendicular bisector of the two foci crosses the vertical line through our lower focus at a lower point than
 			// our perpendicular bisector of our 'left' edge and our lower focus does...
 			Line twoFociBisector = this.focus.PerpendicularBisector(that.focus);

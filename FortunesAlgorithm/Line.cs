@@ -64,12 +64,6 @@ namespace FortunesAlgorithm
 		{
 			return string.Format ("Line({0})", Vector());
 		}
-
-        public bool Colinear(Line that)
-        {
-            Vector3 determinant = this.Vector().CrossProduct(that.Vector());
-            return (determinant.x == 0 || determinant.y == 0);
-        }
 	}
 }
 

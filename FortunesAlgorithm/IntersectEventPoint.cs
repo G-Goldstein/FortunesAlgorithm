@@ -62,7 +62,7 @@ namespace FortunesAlgorithm
                 {
                     Line lineA = bs.leftBoundary.LineWith(bs.rightBoundary);
                     Line lineB = bs.leftBoundary.LineWith(bs.focus);
-                    if (!lineA.Colinear(lineB))
+                    if (!lineA.Equals(lineB))
                         set.Add(new IntersectEventPoint(bs));
                 }
             }
