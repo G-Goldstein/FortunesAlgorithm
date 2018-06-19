@@ -10,18 +10,21 @@ namespace FortunesAlgorithm
 	public class HorizontalRowOfSites
 	{
 		VoronoiDiagram voronoi;
-        Point leftSite;
-        Point middleSite;
-        Point rightSite;
+        List<Point> sites;
+        int siteCount;
 
         Dictionary<Point, List<Point>> siteToBordersMap;
 
         [SetUp]
 		public void SetUp() {
-            leftSite = new Point (-2, 0);
-			middleSite = new Point (0, 0);
-            rightSite = new Point (2, 0);
-			voronoi = new VoronoiDiagram(new List<Point>{ leftSite, middleSite, rightSite });
+            siteCount = 6;
+            sites = new List<Point>();
+            for (int i = 0; i < siteCount; i++)
+            {
+                float x = 2*i + 1 - siteCount;
+                sites.Add(new Point(x, 0));
+            }
+			voronoi = new VoronoiDiagram(sites);
 
             siteToBordersMap = new Dictionary<Point, List<Point>>();
 
@@ -33,51 +36,42 @@ namespace FortunesAlgorithm
         }
 
 		[Test]
-		public void ResultingDiagramHasThreeCells ()
+		public void ResultingDiagramHasOneCellPerSite ()
 		{
-			Assert.AreEqual (3, voronoi.Cells ().Count ());
+			Assert.AreEqual (siteCount, voronoi.Cells ().Count ());
 		}
 
         [Test]
-        public void LeftCellHasOneBorder()
+        public void FirstCellHasOneBorder()
         {
-            Assert.AreEqual(1, siteToBordersMap[leftSite].Count());
+            Assert.AreEqual(1, siteToBordersMap[sites.First()].Count());
         }
 
         [Test]
-        public void RightCellHasOneBorder()
+        public void LastCellHasOneBorder()
         {
-            Assert.AreEqual(1, siteToBordersMap[rightSite].Count());
+            Assert.AreEqual(1, siteToBordersMap[sites.Last()].Count());
         }
 
         [Test]
-        public void MiddleCellHasTwoBorders()
+        public void MiddleCellsHaveTwoBorders()
         {
-            Assert.AreEqual(2, siteToBordersMap[middleSite].Count());
+            for (int i = 1; i < siteCount - 1; i++)
+                Assert.AreEqual(2, siteToBordersMap[sites[i]].Count());
         }
 
         [Test]
-        public void LeftCellBordersMiddleCell()
+        public void EachCellBordersNext()
         {
-            Assert.Contains(middleSite, siteToBordersMap[leftSite]);
+            for (int i = 0; i < siteCount - 1; i++)
+                Assert.Contains(sites[i + 1], siteToBordersMap[sites[i]]);
         }
 
         [Test]
-        public void RightCellBordersMiddleCell()
+        public void EachCellBordersPrevious()
         {
-            Assert.Contains(middleSite, siteToBordersMap[rightSite]);
-        }
-
-        [Test]
-        public void MiddleCellBordersLeftCell()
-        {
-            Assert.Contains(leftSite, siteToBordersMap[middleSite]);
-        }
-
-        [Test]
-        public void MiddleCellBordersRightCell()
-        {
-            Assert.Contains(rightSite, siteToBordersMap[middleSite]);
+            for (int i = 1; i < siteCount; i++)
+                Assert.Contains(sites[i - 1], siteToBordersMap[sites[i]]);
         }
     }
 }
