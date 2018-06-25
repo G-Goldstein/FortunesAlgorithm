@@ -45,7 +45,6 @@ namespace FortunesAlgorithm
             Assert.AreEqual(4, voronoi.Cells().Count());
         }
 
-        [Test]
         [TestCaseSource("AdjacentNeighbours")]
         public void AdjacentPointsAreNeighbours(Point a, Point b)
         {
@@ -85,6 +84,17 @@ namespace FortunesAlgorithm
                 CollectionAssert.DoesNotContain(siteToBordersMap[topLeft], bottomRight);
             else
                 CollectionAssert.Contains(siteToBordersMap[topLeft], bottomRight);
+        }
+
+        [Test]
+        public void SitesHaveTenTotalBorders()
+        {
+            int totalBorders = 0;
+            foreach (KeyValuePair<Point, List<Point>> pair in siteToBordersMap)
+            {
+                totalBorders += pair.Value.Count();
+            }
+            Assert.AreEqual(10, totalBorders);
         }
     }
 }
