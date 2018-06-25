@@ -7,7 +7,7 @@ using System.Linq;
 namespace FortunesAlgorithm
 {
     [TestFixture]
-    public class DiagonallRowOfSites
+    public class DiagonalRowOfSites
     {
         VoronoiDiagram voronoi;
         List<Point> sites;
