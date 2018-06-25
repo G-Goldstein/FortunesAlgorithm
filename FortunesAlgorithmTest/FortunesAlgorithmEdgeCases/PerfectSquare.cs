@@ -45,6 +45,7 @@ namespace FortunesAlgorithm
             Assert.AreEqual(4, voronoi.Cells().Count());
         }
 
+        [Test]
         [TestCaseSource("AdjacentNeighbours")]
         public void AdjacentPointsAreNeighbours(Point a, Point b)
         {
