@@ -39,7 +39,8 @@
     <Compile Include="FortunesAlgorithmBasics\OneSiteDuplicated.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\DiagonalRowOfColinearSites.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\HorizontalRowOfSitesWithLeader.cs" />
-    <Compile Include="FortunesAlgorithmEdgeCases\PerfectSquare.cs" />
+    <Compile Include="FortunesAlgorithmEdgeCases\PerfectSquareDiagonal.cs" />
+    <Compile Include="FortunesAlgorithmEdgeCases\PerfectSquareOrthogonal.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\VerticalRowOfSites.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\HorizontalRowOfSites.cs" />
     <Compile Include="FortunesAlgorithmBasics\ThreeSitesUnaligned.cs" />

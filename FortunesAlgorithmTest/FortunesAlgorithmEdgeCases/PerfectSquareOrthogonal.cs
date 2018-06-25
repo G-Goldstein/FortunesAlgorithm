@@ -7,13 +7,13 @@ using System.Linq;
 namespace FortunesAlgorithm
 {
     [TestFixture]
-    public class PerfectSquare
+    public class PerfectSquareOrthogonal
     {
         VoronoiDiagram voronoi;
-        Point topLeft;
-        Point topRight;
-        Point bottomLeft;
-        Point bottomRight;
+        static Point topLeft;
+        static Point topRight;
+        static Point bottomLeft;
+        static Point bottomRight;
         List<Point> points;
 
         Dictionary<Point, List<Point>> siteToBordersMap;
@@ -21,10 +21,7 @@ namespace FortunesAlgorithm
         [SetUp]
         public void SetUp()
         {
-            topLeft = new Point(-1, 1);
-            topRight = new Point(1, 1);
-            bottomLeft = new Point(-1, -1);
-            bottomRight = new Point(1, -1);
+            SetPoints();
 
             points = new List<Point> { topLeft, topRight, bottomLeft, bottomRight };
 
@@ -37,6 +34,14 @@ namespace FortunesAlgorithm
             {
                 siteToBordersMap[cell.Site()] = cell.Borders().ToList();
             }
+        }
+
+        static void SetPoints()
+        {
+            topLeft = new Point(-1, 1);
+            topRight = new Point(1, 1);
+            bottomLeft = new Point(-1, -1);
+            bottomRight = new Point(1, -1);
         }
 
         [Test]
@@ -55,16 +60,15 @@ namespace FortunesAlgorithm
         {
             get
             {
-                PerfectSquare ps = new PerfectSquare();
-                ps.SetUp();
-                yield return new TestCaseData(ps.topLeft, ps.topRight);
-                yield return new TestCaseData(ps.topRight, ps.topLeft);
-                yield return new TestCaseData(ps.topRight, ps.bottomRight);
-                yield return new TestCaseData(ps.bottomRight, ps.topRight);
-                yield return new TestCaseData(ps.bottomLeft, ps.bottomRight);
-                yield return new TestCaseData(ps.bottomRight, ps.bottomLeft);
-                yield return new TestCaseData(ps.topLeft, ps.bottomLeft);
-                yield return new TestCaseData(ps.bottomLeft, ps.topLeft);
+                SetPoints();
+                yield return new TestCaseData(topLeft, topRight);
+                yield return new TestCaseData(topRight, topLeft);
+                yield return new TestCaseData(topRight, bottomRight);
+                yield return new TestCaseData(bottomRight, topRight);
+                yield return new TestCaseData(bottomLeft, bottomRight);
+                yield return new TestCaseData(bottomRight, bottomLeft);
+                yield return new TestCaseData(topLeft, bottomLeft);
+                yield return new TestCaseData(bottomLeft, topLeft);
             }
         }
 
