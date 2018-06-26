@@ -90,11 +90,10 @@ namespace BeachSectionsAndPoints
 		}
 
 		[Test]
-		public void CentrePointInExactlyOneBeachLine() {
+		public void CentrePointInBothBeachLines() {
 			int leftCompare = left.CompareTo (centrePoint);
 			int rightCompare = right.CompareTo (centrePoint);
-			Assert.True (leftCompare == 0 || rightCompare == 0);
-			Assert.True (leftCompare == -1 || rightCompare == 1);
+			Assert.True (leftCompare == 0 && rightCompare == 0);
 		}
 	}
 
@@ -189,11 +188,10 @@ namespace BeachSectionsAndPoints
 		}
 
 		[Test]
-		public void PointOnEdgeOfLeftishAndRightishSectionsIsInExactlyOneOfThem() {
+		public void PointOnEdgeOfLeftishAndRightishSectionsIsInBothOfThem() {
 			int leftCompare = leftIsh.CompareTo (pointOnEdgeOfLeftishAndRightish);
 			int rightCompare = rightIsh.CompareTo (pointOnEdgeOfLeftishAndRightish);
-			Assert.True (leftCompare == 0 || rightCompare == 0);
-			Assert.True (leftCompare == -1 || rightCompare == 1);
+			Assert.True (leftCompare == 0 && rightCompare == 0);
 		}
 	}
 

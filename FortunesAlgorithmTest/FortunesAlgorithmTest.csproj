@@ -40,6 +40,7 @@
     <Compile Include="FortunesAlgorithmEdgeCases\DiagonalRowOfColinearSites.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\HorizontalRowOfSitesWithLeader.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\PerfectSquareDiagonal.cs" />
+    <Compile Include="FortunesAlgorithmEdgeCases\OctogonalSites.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\PerfectSquareOrthogonal.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\VerticalRowOfSites.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\HorizontalRowOfSites.cs" />
