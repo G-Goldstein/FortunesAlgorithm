@@ -193,7 +193,7 @@ namespace Structures
 			if (parent == null)
 				throw new ArgumentOutOfRangeException ("Asked for predecessor of element with least value");
 			if (this == parent.right)
-			return parent;
+			    return parent;
 			return parent.NextLeftParent ();
 		}
 
