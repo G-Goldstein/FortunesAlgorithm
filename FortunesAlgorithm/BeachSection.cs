@@ -63,34 +63,33 @@ namespace FortunesAlgorithm
 		}
 
 		public int CompareTo(Point site) {
-			if (PointIsOnOrLeftOfLeftEdge (site))
+			if (PointIsLeftOfLeftEdge (site))
 				return 1;
 			if (PointIsRightOfRightEdge (site))
 				return -1;
 			return 0;
 		}
 
-		bool PointIsOnOrLeftOfLeftEdge(Point site) {
+		bool PointIsLeftOfLeftEdge(Point site) {
 			if (IsLeftmost())
 				return false;
 			if (focus.Cartesiany () == leftBoundary.Cartesiany ())
-				return site.Cartesianx () <= (focus.Cartesianx () + leftBoundary.Cartesianx ()) / 2;
+				return site.Cartesianx () < (focus.Cartesianx () + leftBoundary.Cartesianx ()) / 2;
 			Line directrix = new Line (0, 1, -site.Cartesiany ());
 			float xIntercept = focus.LineWith (leftBoundary).Intersect (directrix).Cartesianx ();
 			if (leftBoundary.Cartesiany () > focus.Cartesiany ()) {
 				if (site.Cartesianx () >= xIntercept)
 					return false;
-				return Point.CircleCentre (site, focus, leftBoundary).Cartesianx () >= site.Cartesianx ();
+				return Point.CircleCentre (site, focus, leftBoundary).Cartesianx () > site.Cartesianx ();
 			}
 			if (site.Cartesianx () <= xIntercept)
 				return true;
-			return Point.CircleCentre (site, focus, leftBoundary).Cartesianx () >= site.Cartesianx ();
+			return Point.CircleCentre (site, focus, leftBoundary).Cartesianx () > site.Cartesianx ();
 		}
 
 		bool PointIsRightOfRightEdge(Point site) {
-			if (IsRightmost ())
-				return false;
-			return !(new BeachSection (rightBoundary, focus, focus).PointIsOnOrLeftOfLeftEdge (site));
+            Point siteFlippedHorizontally = new Point(-site.Cartesianx(), site.Cartesiany());
+			return FlippedHorizontally().PointIsLeftOfLeftEdge (siteFlippedHorizontally);
 		}
 
 		public int CompareTo(BeachSection that) {
@@ -139,10 +138,14 @@ namespace FortunesAlgorithm
 			throw new ApplicationException (String.Format ("Couldn't resolve comparison of beach sections {0} and {1}", this, that));
 		}
 
-		BeachSection FlippedHorizontally() { // Just completely mirror all the x points through the line x=0, to conform to our 'higher focus is to the left' convention.
+		BeachSection FlippedHorizontally() { // Just completely mirror all the x points through the line x=0, to solve similar situations.
 			Point flippedFocus = new Point (-focus.Cartesianx (), focus.Cartesiany());
-			Point flippedLeftBoundary = new Point(-rightBoundary.Cartesianx(), rightBoundary.Cartesiany());
-			Point flippedRightBoundary = new Point(-leftBoundary.Cartesianx(), leftBoundary.Cartesiany());
+            Point flippedLeftBoundary = null;
+            Point flippedRightBoundary = null;
+            if (rightBoundary != null)
+			    flippedLeftBoundary = new Point(-rightBoundary.Cartesianx(), rightBoundary.Cartesiany());
+            if (leftBoundary != null)
+			    flippedRightBoundary = new Point(-leftBoundary.Cartesianx(), leftBoundary.Cartesiany());
 			return new BeachSection (flippedFocus, flippedLeftBoundary, flippedRightBoundary);
 		}
 	}
