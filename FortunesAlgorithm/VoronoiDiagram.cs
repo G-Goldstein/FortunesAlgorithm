@@ -100,8 +100,8 @@ namespace FortunesAlgorithm
                         if (!iep.Equals(intersectEventPoint))
                             eventQueue.Add(iep, sweepLineY);
 
-                    cells [newLeftBeachSection.focus].AddBorder (newRightBeachSection.focus);
-					cells [newRightBeachSection.focus].AddBorder (newLeftBeachSection.focus);
+                    cells [consumedBeachSection.leftBoundary].AddBorder (consumedBeachSection.rightBoundary);
+					cells [consumedBeachSection.rightBoundary].AddBorder (consumedBeachSection.leftBoundary);
 				}
 			}
 		}
