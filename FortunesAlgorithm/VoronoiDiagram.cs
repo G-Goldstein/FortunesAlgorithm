@@ -21,9 +21,8 @@ namespace FortunesAlgorithm
 			List<Point> highestPoints = FindHighestPoints (distinctPoints).OrderBy (p => p.Cartesianx ()).ToList();
 			float mostY = highestPoints.First ().Cartesiany();
 			IEnumerable<Point> otherPoints = distinctPoints.Where (p => p.Cartesiany() < mostY);
-
-			RBTree<BeachSection> beachLine = new RBTree<BeachSection> ();
-			EventQueue eventQueue = new EventQueue();
+            
+            List<BeachSection> initialBeachSections = new List<BeachSection>();
 
 			// Initialise the beachline with all points having most Y coordinate.
 			// There'll often be only one of these, but calculating their interactions 
@@ -47,61 +46,39 @@ namespace FortunesAlgorithm
                 }
 
                 BeachSection bs = new BeachSection (focus, left, right);
-				beachLine.Add (bs);
+                initialBeachSections.Add (bs);
 			}
 
-			foreach (Point point in otherPoints)
-				eventQueue.Add (new SiteEventPoint (point));
+            BeachLine beachLine = new BeachLine(initialBeachSections, otherPoints);
 
-			while (!eventQueue.IsEmpty()) { // This loop needs tidying up. There's lots of repetition and similar ideas within it, and they could do with factoring out.
-				IEventPoint eventPoint = eventQueue.Pop ();
-				float sweepLineY = eventPoint.Point ().Cartesiany ();
+			while (beachLine.HasMoreEvents()) { // This loop needs tidying up. There's lots of repetition and similar ideas within it, and they could do with factoring out.
+
+				IEventPoint eventPoint = beachLine.PopEvent ();
+
 				if (eventPoint.EventType () == "Site") {
-					Point site = eventPoint.Point ();
-					VoronoiCell cell = new VoronoiCell (site);
-					cells [site] = cell;
 
-					BeachSection containingBeachSection = BeachSectionContainingPoint (beachLine, site);
-					BeachSection newBeachSectionLeft = new BeachSection (containingBeachSection.focus, containingBeachSection.leftBoundary, site);
-					BeachSection newBeachSectionCentre = new BeachSection (site, containingBeachSection.focus, containingBeachSection.focus);
-					BeachSection newBeachSectionRight = new BeachSection (containingBeachSection.focus, site, containingBeachSection.rightBoundary);
-					beachLine.Remove (containingBeachSection);
-					beachLine.Add (newBeachSectionLeft);
-					beachLine.Add (newBeachSectionCentre);
-					beachLine.Add (newBeachSectionRight);
+                    Point site = eventPoint.Point ();
+
+                    BeachSection containingBeachSection = beachLine.BeachSectionContainingPoint(site);
+
+                    VoronoiCell cell = new VoronoiCell (site);
+					cells[site] = cell;
+                    cells[site].AddBorder(containingBeachSection.focus);
+                    cells[containingBeachSection.focus].AddBorder(site);
                     
-                    foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { newBeachSectionLeft, newBeachSectionRight }))
-                        eventQueue.Add(iep, sweepLineY);
-
-                    foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { containingBeachSection }))
-                        eventQueue.Remove(iep, sweepLineY);
-
-                    cells [site].AddBorder (containingBeachSection.focus);
-					cells [containingBeachSection.focus].AddBorder (site);
-
+                    beachLine.SplitBeachSection(site);
+                    
 				} else { // EventType = "Intersect"
-					IntersectEventPoint intersectEventPoint = (IntersectEventPoint)eventPoint;
+
+                    IntersectEventPoint intersectEventPoint = (IntersectEventPoint)eventPoint;
 
 					BeachSection consumedBeachSection = intersectEventPoint.consumedBeachSection;
-					BeachSection leftBeachSection = beachLine.Predecessor (consumedBeachSection);
-					BeachSection rightBeachSection = beachLine.Successor (consumedBeachSection);
-					BeachSection newLeftBeachSection = new BeachSection (leftBeachSection.focus, leftBeachSection.leftBoundary, rightBeachSection.focus);
-					BeachSection newRightBeachSection = new BeachSection (rightBeachSection.focus, leftBeachSection.focus, rightBeachSection.rightBoundary);
-					beachLine.Remove (consumedBeachSection);
-					beachLine.Remove (leftBeachSection);
-					beachLine.Remove (rightBeachSection);
-					beachLine.Add (newLeftBeachSection);
-					beachLine.Add (newRightBeachSection);
 
-                    foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { leftBeachSection, rightBeachSection }))
-                        eventQueue.Remove(iep, sweepLineY);
+                    cells[consumedBeachSection.leftBoundary].AddBorder(consumedBeachSection.rightBoundary);
+                    cells[consumedBeachSection.rightBoundary].AddBorder(consumedBeachSection.leftBoundary);
 
-                    foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { newLeftBeachSection, newRightBeachSection }))
-                        if (!iep.Equals(intersectEventPoint))
-                            eventQueue.Add(iep, sweepLineY);
-
-                    cells [consumedBeachSection.leftBoundary].AddBorder (consumedBeachSection.rightBoundary);
-					cells [consumedBeachSection.rightBoundary].AddBorder (consumedBeachSection.leftBoundary);
+                    beachLine.ConsumeBeachSection(intersectEventPoint);
+                    
 				}
 			}
 		}
@@ -118,19 +95,6 @@ namespace FortunesAlgorithm
 				}
 			}
 			return highestPoints;
-		}
-
-		BeachSection BeachSectionContainingPoint(RBTree<BeachSection> beachLine, Point point) {
-			RBBranch<BeachSection> candidate = (RBBranch<BeachSection>)beachLine.root;
-			while (true) {
-				int compareResult = candidate.value.CompareTo (point);
-				if (compareResult == 0)
-					return candidate.value;
-				if (compareResult > 0)
-					candidate = (RBBranch<BeachSection>)candidate.left;
-				if (compareResult < 0)
-					candidate = (RBBranch<BeachSection>)candidate.right;
-			}
 		}
 
 		public IEnumerable<VoronoiCell> Cells() {

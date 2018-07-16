@@ -32,14 +32,8 @@ namespace FortunesAlgorithm
 			eventQueue.Add (eventPoint);
 		}
 
-		public void Add(IEventPoint eventPoint, float sweepLineY) {
-			if (eventPoint.Point ().Cartesiany () <= sweepLineY)
-				Add (eventPoint);
-		}
-
-		public void Remove(IEventPoint eventPoint, float sweepLineY) {
-			if (eventPoint.Point ().Cartesiany () <= sweepLineY)
-				intersectionsToIgnore.Add (eventPoint.Point());
+		public void Remove(IEventPoint eventPoint) {
+			intersectionsToIgnore.Add (eventPoint.Point());
 		}
 
 		public IEventPoint Pop() {
