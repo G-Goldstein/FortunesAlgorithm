@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FortunesAlgorithm
 {
@@ -148,6 +149,13 @@ namespace FortunesAlgorithm
 			    flippedRightBoundary = new Point(-leftBoundary.Cartesianx(), leftBoundary.Cartesiany());
 			return new BeachSection (flippedFocus, flippedLeftBoundary, flippedRightBoundary);
 		}
+
+        // 'Closed' refers to whether our parabola will be engulfed by those on either side of it as the sweep line progresses downwards.
+        // If it won't, we'll never produce an IntersectEventPoint from this beach section.
+        public bool Closed()
+        {
+            return new ConvexPolygon(new List<Point> { focus, leftBoundary, rightBoundary }).NextVertex(focus) == leftBoundary;
+        }
 	}
 }
 

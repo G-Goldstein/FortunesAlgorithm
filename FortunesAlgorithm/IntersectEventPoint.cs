@@ -58,12 +58,18 @@ namespace FortunesAlgorithm
             HashSet<IntersectEventPoint> set = new HashSet<IntersectEventPoint>();
             foreach (BeachSection bs in beachSections)
             {
-                if (!bs.IsLeftmost() && !bs.IsRightmost() && !bs.leftBoundary.Equals(bs.rightBoundary))
+                if (!bs.IsLeftmost() &&
+                    !bs.IsRightmost() &&
+                    bs.leftBoundary != bs.rightBoundary
+                    )
                 {
                     Line lineA = bs.leftBoundary.LineWith(bs.rightBoundary);
                     Line lineB = bs.leftBoundary.LineWith(bs.focus);
-                    if (!lineA.Equals(lineB))
-                        set.Add(new IntersectEventPoint(bs));
+                    if (!lineA.Equals(lineB) && bs.Closed())
+                    {
+                        IntersectEventPoint iep = new IntersectEventPoint(bs);
+                        set.Add(iep);
+                    }
                 }
             }
             return set;
