@@ -34,20 +34,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeachLine.cs" />
-    <Compile Include="ConvexPolygon.cs" />
+    <Compile Include="Geometry\ConvexPolygon.cs" />
     <Compile Include="FortunesAlgorithm.cs" />
+    <Compile Include="Geometry\Geometry.cs" />
+    <Compile Include="Geometry\Rectangle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Geometry\Point.cs" />
     <Compile Include="VoronoiCell.cs" />
-    <Compile Include="Line.cs" />
+    <Compile Include="Geometry\Line.cs" />
     <Compile Include="VoronoiDiagram.cs" />
     <Compile Include="IEventPoint.cs" />
     <Compile Include="SiteEventPoint.cs" />
-    <Compile Include="Vector3.cs" />
+    <Compile Include="Geometry\Vector3.cs" />
     <Compile Include="IntersectEventPoint.cs" />
     <Compile Include="BeachSection.cs" />
     <Compile Include="Hash.cs" />
-    <Compile Include="PerpendicularBisector.cs" />
+    <Compile Include="Geometry\PerpendicularBisector.cs" />
     <Compile Include="EventQueue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

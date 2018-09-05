@@ -3,7 +3,7 @@ using System;
 using FortunesAlgorithm;
 using System.Collections.Generic;
 
-namespace Geometry
+namespace GeometryTest
 {
     [TestFixture]
     public class ConvexSquare

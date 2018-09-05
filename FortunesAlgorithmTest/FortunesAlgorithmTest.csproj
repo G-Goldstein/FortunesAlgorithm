@@ -45,11 +45,12 @@
     <Compile Include="FortunesAlgorithmEdgeCases\VerticalRowOfSites.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\HorizontalRowOfSites.cs" />
     <Compile Include="FortunesAlgorithmBasics\ThreeSitesUnaligned.cs" />
-    <Compile Include="Geometry\ConvexPolygonTest.cs" />
-    <Compile Include="Geometry\PointTest.cs" />
-    <Compile Include="Geometry\LineTest.cs" />
-    <Compile Include="Geometry\Vector3Test.cs" />
-    <Compile Include="Geometry\BoundaryRayTest.cs" />
+    <Compile Include="GeometryTest\ConvexPolygonTest.cs" />
+    <Compile Include="GeometryTest\PointsAndRectangles.cs" />
+    <Compile Include="GeometryTest\PointTest.cs" />
+    <Compile Include="GeometryTest\LineTest.cs" />
+    <Compile Include="GeometryTest\Vector3Test.cs" />
+    <Compile Include="GeometryTest\BoundaryRayTest.cs" />
     <Compile Include="BeachLines\BeachSectionComparisonTest.cs" />
     <Compile Include="BeachLines\BeachSectionToPointComparisonTest.cs" />
     <Compile Include="FortunesAlgorithmBasics\NoSites.cs" />
