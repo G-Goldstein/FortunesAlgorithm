@@ -22,5 +22,15 @@ namespace FortunesAlgorithm
                  && point.Cartesiany() < rectangle.topLeft.Cartesiany()
                  && point.Cartesiany() > rectangle.bottomRight.Cartesiany();
         }
+
+        public static IEnumerable<Point> MirrorPointsFormingRectangle(Point point, Rectangle rectangle)
+        {
+            if (!RectangleEnclosesPoint(rectangle, point))
+                throw new ArgumentOutOfRangeException("Rectangle doesn't contain point");
+            yield return new Point(2 * rectangle.Right() - point.Cartesianx(), point.Cartesiany());
+            yield return new Point(point.Cartesianx(), 2 * rectangle.Top() - point.Cartesiany());
+            yield return new Point(2 * rectangle.Left() - point.Cartesianx(), point.Cartesiany());
+            yield return new Point(point.Cartesianx(), 2 * rectangle.Bottom() - point.Cartesiany());
+        }
     }
 }

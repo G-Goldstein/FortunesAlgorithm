@@ -2,11 +2,12 @@
 using System;
 using FortunesAlgorithm;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GeometryTest
 {
     [TestFixture]
-    public class PointsAndRectangles
+    public class RectangleEnclosesPoint
     {
         Rectangle rect;
 
@@ -68,6 +69,26 @@ namespace GeometryTest
                 yield return new TestCaseData(new Point(0.9f, 0.9f));
                 yield return new TestCaseData(new Point(-0.9f, 0.4f));
             }
+        }
+    }
+
+    [TestFixture]
+    public class MirrorPointsForRectangle
+    {
+        Rectangle rect;
+
+        [SetUp]
+        public void SetUp()
+        {
+            rect = new Rectangle(new Point(-10, 10), new Point(10, -10));
+        }
+
+        [Test]
+        public void MirrorPointsAreCorrect()
+        {
+            Point site = new Point(3, -7);
+            HashSet<Point> expectedPoints = new HashSet<Point> { new Point(17, -7), new Point(3, 27), new Point(-23, -7), new Point(3, -13) };
+            Assert.AreEqual(expectedPoints, new HashSet<Point>(Geometry.MirrorPointsFormingRectangle(site, rect)));
         }
     }
 }
