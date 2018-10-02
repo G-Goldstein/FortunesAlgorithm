@@ -41,7 +41,37 @@ namespace FortunesAlgorithm
             return previous[point];
         }
 
-        public Point Centroid(IEnumerable<Point> points)
+        public Point AnyVertex()
+        {
+            return next.First().Value;
+        }
+
+        public IEnumerable<Point> AllPointsInOrder()
+        {
+            return AllPointsInOrder(AnyVertex());
+        }
+
+        public IEnumerable<Point> AllPointsInOrder(Point startPoint)
+        {
+            Point currentPoint = startPoint;
+            yield return currentPoint;
+            currentPoint = NextVertex(currentPoint);
+            while (!currentPoint.Equals(startPoint))
+            {
+                yield return currentPoint;
+                currentPoint = NextVertex(currentPoint);
+            }
+        }
+
+        public void Remove(Point point)
+        {
+            Point successor = NextVertex(point);
+            Point predecessor = PreviousVertex(point);
+            next[predecessor] = successor;
+            previous[successor] = predecessor;
+        }
+
+        public static Point Centroid(IEnumerable<Point> points)
         {
             float xSum = points.Aggregate(0f, (total, next) => total + next.Cartesianx());
             float ySum = points.Aggregate(0f, (total, next) => total + next.Cartesiany());
@@ -50,12 +80,12 @@ namespace FortunesAlgorithm
             return new Point(xMean, yMean);
         }
 
-        public List<Point> OrderPoints(Point centroid, IEnumerable<Point> points)
+        public static List<Point> OrderPoints(Point centroid, IEnumerable<Point> points)
         {
             return points.OrderBy((point) => AngleFromOrigin(centroid, point)).ToList();
         }
 
-        public float AngleFromOrigin(Point origin, Point point)
+        public static float AngleFromOrigin(Point origin, Point point)
         {
             return (float)Math.Atan2(point.Cartesiany() - origin.Cartesiany(), point.Cartesianx() - origin.Cartesianx());
         }

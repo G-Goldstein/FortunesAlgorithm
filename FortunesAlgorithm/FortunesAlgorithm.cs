@@ -7,14 +7,14 @@ namespace FortunesAlgorithm
 {
     public class FortunesAlgorithm
     {
-        Dictionary<Point, VoronoiCell> cells;
+        Dictionary<Point, VoronoiCellUnorganised> cells;
 
-        public Dictionary<Point, VoronoiCell> WithPoints(IEnumerable<Point> points)
+        public Dictionary<Point, VoronoiCellUnorganised> WithPoints(IEnumerable<Point> points)
         {
             if (points.Count() == 0)
                 throw new System.ArgumentException("No points provided");
 
-            cells = new Dictionary<Point, VoronoiCell>();
+            cells = new Dictionary<Point, VoronoiCellUnorganised>();
 
             // We'll start at the top of the field and work down.
 
@@ -34,7 +34,7 @@ namespace FortunesAlgorithm
                 Point left = null;
                 Point right = null;
                 Point focus = highestPoints[i];
-                cells[focus] = new VoronoiCell(focus);
+                cells[focus] = new VoronoiCellUnorganised(focus);
                 if (i > 0)
                 {
                     left = highestPoints[i - 1];
@@ -68,7 +68,7 @@ namespace FortunesAlgorithm
 
                     BeachSection containingBeachSection = beachLine.BeachSectionContainingPoint(site);
 
-                    VoronoiCell cell = new VoronoiCell(site);
+                    VoronoiCellUnorganised cell = new VoronoiCellUnorganised(site);
                     cells[site] = cell;
                     AddBorderBetweenCells(site, containingBeachSection.focus);
 

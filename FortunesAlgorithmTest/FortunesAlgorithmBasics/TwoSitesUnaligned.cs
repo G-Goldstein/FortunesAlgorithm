@@ -28,8 +28,8 @@ namespace FortunesAlgorithm
 
 		[Test]
 		public void EachCellHasOneBorder() {
-			List<VoronoiCell> cells = voronoi.Cells ().ToList ();
-			foreach (VoronoiCell cell in cells) {
+			List<VoronoiCellUnorganised> cells = voronoi.Cells ().ToList ();
+			foreach (VoronoiCellUnorganised cell in cells) {
 				Assert.AreEqual (1, cell.Borders ().Count ());
 			}
 		}
@@ -43,8 +43,8 @@ namespace FortunesAlgorithm
             expectedBorderMap[siteA] = siteB;
             expectedBorderMap[siteB] = siteA;
 
-            List<VoronoiCell> cells = voronoi.Cells().ToList();
-            foreach (VoronoiCell cell in cells)
+            List<VoronoiCellUnorganised> cells = voronoi.Cells().ToList();
+            foreach (VoronoiCellUnorganised cell in cells)
             {
                 siteToBorderMap[cell.Site()] = cell.Borders().First();
             }

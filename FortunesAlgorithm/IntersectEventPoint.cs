@@ -26,7 +26,7 @@ namespace FortunesAlgorithm
 		}
 
 		Point Centre() {
-			return new PerpendicularBisector (a, b).Line ().Intersect (new PerpendicularBisector (a, c).Line ());
+            return Geometry.CircleCentre(a, b, c);
 		}
 
 		float Radius() {

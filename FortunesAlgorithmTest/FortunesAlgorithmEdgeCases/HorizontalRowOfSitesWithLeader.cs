@@ -36,8 +36,8 @@ namespace FortunesAlgorithm
 
             siteToBordersMap = new Dictionary<Point, List<Point>>();
 
-            List<VoronoiCell> cells = voronoi.Cells().ToList();
-            foreach (VoronoiCell cell in cells)
+            List<VoronoiCellUnorganised> cells = voronoi.Cells().ToList();
+            foreach (VoronoiCellUnorganised cell in cells)
             {
                 siteToBordersMap[cell.Site()] = cell.Borders().ToList();
             }

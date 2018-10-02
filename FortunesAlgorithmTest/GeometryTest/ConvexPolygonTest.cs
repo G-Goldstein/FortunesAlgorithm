@@ -2,6 +2,7 @@
 using System;
 using FortunesAlgorithm;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GeometryTest
 {
@@ -43,6 +44,13 @@ namespace GeometryTest
             Assert.AreEqual(b, poly.PreviousVertex(a));
         }
 
+        [TestCaseSource("OrderedPointsData")]
+        public void AllPoints(Point start, List<Point> ordering)
+        {
+            IEnumerable<Point> actual = poly.AllPointsInOrder(start);
+            Assert.AreEqual(ordering, actual);
+        }
+
         public static IEnumerable<ITestCaseData> NextPointsData
         {
             get
@@ -64,6 +72,18 @@ namespace GeometryTest
                 yield return new TestCaseData(topLeft, topRight);
                 yield return new TestCaseData(bottomLeft, topLeft);
                 yield return new TestCaseData(bottomRight, bottomLeft);
+            }
+        }
+
+        public static IEnumerable<ITestCaseData> OrderedPointsData
+        {
+            get
+            {
+                SetPoints();
+                yield return new TestCaseData(topRight, new List<Point> { topRight, topLeft, bottomLeft, bottomRight });
+                yield return new TestCaseData(topLeft, new List<Point> { topLeft, bottomLeft, bottomRight, topRight });
+                yield return new TestCaseData(bottomLeft, new List<Point> { bottomLeft, bottomRight, topRight, topLeft });
+                yield return new TestCaseData(bottomRight, new List<Point> { bottomRight, topRight, topLeft, bottomLeft });
             }
         }
     }
