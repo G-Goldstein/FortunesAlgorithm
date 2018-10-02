@@ -24,7 +24,7 @@ namespace FortunesAlgorithm
             return UnorganisedCells().Select(c => c.Site());
         }
 
-        public IEnumerable<VoronoiCellOrganised> Cells()
+        public IEnumerable<VoronoiCell> Cells()
         {
             return cells.Values.Select(c => c.Organised());
         }

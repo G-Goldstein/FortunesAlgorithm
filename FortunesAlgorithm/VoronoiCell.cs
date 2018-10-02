@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace FortunesAlgorithm
 {
-    public abstract class VoronoiCell
+    public abstract class IVoronoiCell
     {
         protected Point site;
 
-        public VoronoiCell(Point site)
+        public IVoronoiCell(Point site)
         {
             this.site = site;
         }
@@ -21,7 +21,7 @@ namespace FortunesAlgorithm
         internal abstract IEnumerable<Point> Borders();
     }
 
-	internal class VoronoiCellUnorganised : VoronoiCell
+	internal class VoronoiCellUnorganised : IVoronoiCell
     {
 
         protected List<Point> borderSites;
@@ -35,9 +35,9 @@ namespace FortunesAlgorithm
 			borderSites.Add (border);
 		}
 
-        public VoronoiCellOrganised Organised()
+        public VoronoiCell Organised()
         {
-            return new VoronoiCellOrganised(site, borderSites);
+            return new VoronoiCell(site, borderSites);
         }
 
         internal override IEnumerable<Point> Borders()
@@ -46,11 +46,11 @@ namespace FortunesAlgorithm
         }
 }
 
-    public class VoronoiCellOrganised : VoronoiCell
+    public class VoronoiCell : IVoronoiCell
     {
         ConvexPolygon borderOrdering;
 
-        public VoronoiCellOrganised(Point site, IEnumerable<Point> borderSites) : base(site)
+        public VoronoiCell(Point site, IEnumerable<Point> borderSites) : base(site)
         {
             if (borderSites.Count() == 0)
                 throw new System.ArgumentException("No borders provided");
