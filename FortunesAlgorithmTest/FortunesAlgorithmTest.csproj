@@ -45,6 +45,7 @@
     <Compile Include="FortunesAlgorithmEdgeCases\VerticalRowOfSites.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\HorizontalRowOfSites.cs" />
     <Compile Include="FortunesAlgorithmBasics\ThreeSitesUnaligned.cs" />
+    <Compile Include="GeometryTest\CentroidTest.cs" />
     <Compile Include="GeometryTest\ConvexPolygonTest.cs" />
     <Compile Include="GeometryTest\PointsAndRectangles.cs" />
     <Compile Include="GeometryTest\PointTest.cs" />

@@ -7,14 +7,14 @@ namespace FortunesAlgorithm
 {
     public class ConvexPolygon
     {
-        Point centroid;
+        Point arithmeticMean;
         Dictionary<Point, Point> next;
         Dictionary<Point, Point> previous;
 
         public ConvexPolygon(IEnumerable<Point> points)
         {
-            centroid = Centroid(points);
-            List<Point> orderedPoints = OrderPoints(centroid, points);
+            arithmeticMean = ArithmeticMean(points);
+            List<Point> orderedPoints = OrderPoints(arithmeticMean, points);
             int count = orderedPoints.Count;
             next = new Dictionary<Point, Point>();
             previous = new Dictionary<Point, Point>();
@@ -71,7 +71,32 @@ namespace FortunesAlgorithm
             previous[successor] = predecessor;
         }
 
-        public static Point Centroid(IEnumerable<Point> points)
+        public Point Centroid()
+        {
+            float signedArea = SignedArea();
+            float xAccumulator = 0f;
+            float yAccumulator = 0f;
+            foreach (Point v1 in next.Select(kv => kv.Value))
+            {
+                Point v2 = next[v1];
+                xAccumulator += (v1.Cartesianx() + v2.Cartesianx()) * (v1.Cartesianx() * v2.Cartesiany() - v2.Cartesianx() * v1.Cartesiany());
+                yAccumulator += (v1.Cartesiany() + v2.Cartesiany()) * (v1.Cartesianx() * v2.Cartesiany() - v2.Cartesianx() * v1.Cartesiany());
+            }
+            return new Point(xAccumulator / (6 * signedArea), yAccumulator / (6 * signedArea));
+        }
+
+        public float SignedArea()
+        {
+            float accumulator = 0f;
+            foreach (Point v1 in next.Select(kv => kv.Value))
+            {
+                Point v2 = next[v1];
+                accumulator += v1.Cartesianx() * v2.Cartesiany() - v2.Cartesianx() * v1.Cartesiany();
+            }
+            return accumulator / 2f;
+        }
+
+        public static Point ArithmeticMean(IEnumerable<Point> points)
         {
             float xSum = points.Aggregate(0f, (total, next) => total + next.Cartesianx());
             float ySum = points.Aggregate(0f, (total, next) => total + next.Cartesiany());

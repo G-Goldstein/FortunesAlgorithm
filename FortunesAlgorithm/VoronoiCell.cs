@@ -91,6 +91,29 @@ namespace FortunesAlgorithm
         {
             return borderOrdering.AllPointsInOrder();
         }
+
+        IEnumerable<Point> Vertices()
+        {
+            List<Line> borders = borderOrdering.AllPointsInOrder().Select(p => p.PerpendicularBisector(site)).ToList();
+            for (int i = 0; i < borders.Count(); i++ )
+            {
+                if (i + 1 < borders.Count())
+                    yield return borders[i].Intersect(borders[i + 1]);
+                else
+                    yield return borders[i].Intersect(borders[0]);
+            }
+        }
+
+        ConvexPolygon Polygon()
+        {
+            return new ConvexPolygon(Vertices());
+        }
+
+        Point Centroid()
+        {
+            return Polygon().Centroid();
+        }
+        
     }
 }
 
