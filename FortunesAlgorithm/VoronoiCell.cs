@@ -109,7 +109,7 @@ namespace FortunesAlgorithm
             return new ConvexPolygon(Vertices());
         }
 
-        Point Centroid()
+        public Point Centroid()
         {
             return Polygon().Centroid();
         }

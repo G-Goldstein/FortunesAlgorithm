@@ -9,7 +9,7 @@ namespace GeometryTest
     class CentroidTest
     {
         [TestCaseSource("CentroidData")]
-        public void NextPoints(ConvexPolygon poly, Point expectedCentroid)
+        public void FindCentroids(ConvexPolygon poly, Point expectedCentroid)
         {
             Assert.AreEqual(expectedCentroid, poly.Centroid());
         }
