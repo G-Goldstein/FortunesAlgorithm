@@ -12,7 +12,7 @@ namespace FortunesAlgorithm
 
 		public EventQueue ()
 		{
-			eventQueue = new Heap<IEventPoint> ((a, b) => a.Point().Cartesiany() > b.Point().Cartesiany());
+			eventQueue = new Heap<IEventPoint> ((a, b) => a.Point().y> b.Point().y);
 			intersectionsToIgnore = new HashSet<IEventPoint> ();
 		}
 

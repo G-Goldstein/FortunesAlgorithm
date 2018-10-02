@@ -18,19 +18,16 @@ namespace FortunesAlgorithm
         
         public static bool RectangleEnclosesPoint(Rectangle rectangle, Point point)
         {
-            return point.Cartesianx() > rectangle.topLeft.Cartesianx()
-                 && point.Cartesianx() < rectangle.bottomRight.Cartesianx()
-                 && point.Cartesiany() < rectangle.topLeft.Cartesiany()
-                 && point.Cartesiany() > rectangle.bottomRight.Cartesiany();
+            return point.x> rectangle.topLeft.x                 && point.x< rectangle.bottomRight.x                 && point.y< rectangle.topLeft.y                 && point.y> rectangle.bottomRight.y;
         }
 
         public static IEnumerable<Point> MirrorPointsFormingRectangle(Point point, Rectangle rectangle)
         {
             EnsureRectangleContainsPoint(rectangle, point);
-            yield return new Point(2 * rectangle.Right() - point.Cartesianx(), point.Cartesiany());
-            yield return new Point(point.Cartesianx(), 2 * rectangle.Top() - point.Cartesiany());
-            yield return new Point(2 * rectangle.Left() - point.Cartesianx(), point.Cartesiany());
-            yield return new Point(point.Cartesianx(), 2 * rectangle.Bottom() - point.Cartesiany());
+            yield return new Point(2 * rectangle.Right() - point.x, point.y);
+            yield return new Point(point.x, 2 * rectangle.Top() - point.y);
+            yield return new Point(2 * rectangle.Left() - point.x, point.y);
+            yield return new Point(point.x, 2 * rectangle.Bottom() - point.y);
         }
 
         static void EnsureRectangleContainsPoint(Rectangle rectangle, Point point)

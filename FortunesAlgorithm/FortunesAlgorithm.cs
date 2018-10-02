@@ -23,9 +23,9 @@ namespace FortunesAlgorithm
             // with no background beachline is more difficult so it helps to include them all at once.
 
             HashSet<Point> distinctPoints = new HashSet<Point>(points);
-            List<Point> highestPoints = FindHighestPoints(distinctPoints).OrderBy(p => p.Cartesianx()).ToList();
-            float mostY = highestPoints.First().Cartesiany();
-            IEnumerable<Point> otherPoints = distinctPoints.Where(p => p.Cartesiany() < mostY);
+            List<Point> highestPoints = FindHighestPoints(distinctPoints).OrderBy(p => p.x).ToList();
+            float mostY = highestPoints.First().y;
+            IEnumerable<Point> otherPoints = distinctPoints.Where(p => p.y< mostY);
 
             List<BeachSection> initialBeachSections = new List<BeachSection>();
 
@@ -99,15 +99,15 @@ namespace FortunesAlgorithm
         HashSet<Point> FindHighestPoints(HashSet<Point> points)
         {
             HashSet<Point> highestPoints = new HashSet<Point>();
-            float mostY = points.First().Cartesiany();
+            float mostY = points.First().y;
             foreach (Point point in points)
             {
-                if (point.Cartesiany() == mostY)
+                if (point.y== mostY)
                     highestPoints.Add(point);
-                else if (point.Cartesiany() > mostY)
+                else if (point.y> mostY)
                 {
                     highestPoints = new HashSet<Point> { point };
-                    mostY = point.Cartesiany();
+                    mostY = point.y;
                 }
             }
             return highestPoints;

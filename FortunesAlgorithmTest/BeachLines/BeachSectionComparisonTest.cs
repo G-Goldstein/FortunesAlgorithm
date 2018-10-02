@@ -192,7 +192,7 @@ namespace BeachSectionComparisons
 		void CompareWideTopArcBeachSections(Point topPoint, Point middlePoint, Point lowerPoint) {
 			BeachSection thisSection;
 			BeachSection thatSection;
-			if (middlePoint.Cartesianx () < lowerPoint.Cartesianx ()) {
+			if (middlePoint.x < lowerPoint.x ) {
 				thisSection = new BeachSection (topPoint, middlePoint, lowerPoint);
 				thatSection = new BeachSection (lowerPoint, topPoint, topPoint);
 				AssertGreater (thatSection, thisSection);
@@ -209,8 +209,8 @@ namespace BeachSectionComparisons
 				Point thisFocus = RandomPoint ();
 				float xOffset = SomePositiveValue (10);
 				float yOffset = SomePositiveValue (10);
-				Point edgePoint = new Point (thisFocus.Cartesianx () + xOffset, thisFocus.Cartesiany () - yOffset);
-				Point thatFocus = new Point (edgePoint.Cartesianx () + xOffset, edgePoint.Cartesiany () - yOffset);
+				Point edgePoint = new Point (thisFocus.x + xOffset, thisFocus.y - yOffset);
+				Point thatFocus = new Point (edgePoint.x + xOffset, edgePoint.y - yOffset);
 				BeachSection thisSection = new BeachSection (thisFocus, edgePoint, RandomPoint ());
 				BeachSection thatSection = new BeachSection (thatFocus, RandomPoint (), RandomPoint ());
 				AssertGreater (thisSection, thatSection);
@@ -223,8 +223,8 @@ namespace BeachSectionComparisons
 				Point thisFocus = RandomPoint ();
 				float xOffset = SomePositiveValue (10);
 				float yOffset = SomePositiveValue (10);
-				Point edgePoint = new Point (thisFocus.Cartesianx () - xOffset, thisFocus.Cartesiany () - yOffset);
-				Point thatFocus = new Point (edgePoint.Cartesianx () - xOffset, edgePoint.Cartesiany () - yOffset);
+				Point edgePoint = new Point (thisFocus.x - xOffset, thisFocus.y - yOffset);
+				Point thatFocus = new Point (edgePoint.x - xOffset, edgePoint.y - yOffset);
 				BeachSection thisSection = new BeachSection (thisFocus, RandomPoint(), edgePoint);
 				BeachSection thatSection = new BeachSection (thatFocus, RandomPoint (), RandomPoint ());
 				AssertGreater (thatSection, thisSection);
@@ -300,9 +300,9 @@ namespace BeachSectionComparisons
                     leftB = RandomPoint();
                 BeachSection beachA = new BeachSection(focus, leftA, RandomPoint());
                 BeachSection beachB = new BeachSection(focus, leftB, RandomPoint());
-                if (leftA.Cartesianx() > leftB.Cartesianx())
+                if (leftA.x> leftB.x)
                     AssertGreater(beachA, beachB);
-                else if (leftA.Cartesianx() < leftB.Cartesianx())
+                else if (leftA.x< leftB.x)
                     AssertGreater(beachB, beachA);
             }
         }

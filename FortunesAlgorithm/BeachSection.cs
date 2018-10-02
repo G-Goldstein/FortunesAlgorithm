@@ -74,22 +74,22 @@ namespace FortunesAlgorithm
 		bool PointIsLeftOfLeftEdge(Point site) {
 			if (IsLeftmost())
 				return false;
-			if (focus.Cartesiany () == leftBoundary.Cartesiany ())
-				return site.Cartesianx () < (focus.Cartesianx () + leftBoundary.Cartesianx ()) / 2;
-			Line directrix = new Line (0, 1, -site.Cartesiany ());
-			float xIntercept = focus.LineWith (leftBoundary).Intersect (directrix).Cartesianx ();
-			if (leftBoundary.Cartesiany () > focus.Cartesiany ()) {
-				if (site.Cartesianx () >= xIntercept)
+			if (focus.y == leftBoundary.y )
+				return site.x < (focus.x + leftBoundary.x ) / 2;
+			Line directrix = new Line (0, 1, -site.y );
+			float xIntercept = focus.LineWith (leftBoundary).Intersect (directrix).x ;
+			if (leftBoundary.y > focus.y ) {
+				if (site.x >= xIntercept)
 					return false;
-				return Point.CircleCentre (site, focus, leftBoundary).Cartesianx () > site.Cartesianx ();
+				return Point.CircleCentre (site, focus, leftBoundary).x > site.x ;
 			}
-			if (site.Cartesianx () <= xIntercept)
+			if (site.x <= xIntercept)
 				return true;
-			return Point.CircleCentre (site, focus, leftBoundary).Cartesianx () > site.Cartesianx ();
+			return Point.CircleCentre (site, focus, leftBoundary).x > site.x ;
 		}
 
 		bool PointIsRightOfRightEdge(Point site) {
-            Point siteFlippedHorizontally = new Point(-site.Cartesianx(), site.Cartesiany());
+            Point siteFlippedHorizontally = new Point(-site.x, site.y);
 			return FlippedHorizontally().PointIsLeftOfLeftEdge (siteFlippedHorizontally);
 		}
 
@@ -103,14 +103,14 @@ namespace FortunesAlgorithm
 				return -1;
 			if (this.IsRightmost () || that.IsLeftmost ())
 				return 1;
-			if (this.focus.Cartesiany () == that.focus.Cartesiany ()) {
-                int focusComparison = this.focus.Cartesianx ().CompareTo (that.focus.Cartesianx ());
+			if (this.focus.y == that.focus.y ) {
+                int focusComparison = this.focus.x .CompareTo (that.focus.x );
                 if (focusComparison != 0)
                     return focusComparison;
-                int edgeXComparison = this.leftBoundary.Cartesianx().CompareTo(that.leftBoundary.Cartesianx());
+                int edgeXComparison = this.leftBoundary.x.CompareTo(that.leftBoundary.x);
                 if (edgeXComparison != 0)
                     return edgeXComparison;
-                return -this.leftBoundary.Cartesiany().CompareTo(that.leftBoundary.Cartesiany());
+                return -this.leftBoundary.y.CompareTo(that.leftBoundary.y);
             }
 			// Both sections have a left and a right edge and they're not the same. 
 			// Use a separate function for the details, which can be tail recursive.
@@ -118,35 +118,35 @@ namespace FortunesAlgorithm
 		}
 
 		int CompareProperBeachSectionToProperBeachSection(BeachSection that) {
-			if (this.focus.Cartesiany() < that.focus.Cartesiany())
+			if (this.focus.y< that.focus.y)
 				return -that.CompareProperBeachSectionToProperBeachSection (this);
-			if (this.focus.Cartesianx () > that.focus.Cartesianx ()) // We want to assume that 'this' focus is to the left of 'that' focus, so if that's not true then flip the situation.
+			if (this.focus.x > that.focus.x ) // We want to assume that 'this' focus is to the left of 'that' focus, so if that's not true then flip the situation.
 				return -FlippedHorizontally ().CompareProperBeachSectionToProperBeachSection (that.FlippedHorizontally ());
-			if (this.leftBoundary.Cartesiany () >= this.focus.Cartesiany()) // If our edge point is above both foci
+			if (this.leftBoundary.y >= this.focus.y) // If our edge point is above both foci
 				return -1;
-            if (this.leftBoundary.Cartesianx() >= that.focus.Cartesianx()) // If our left edge is to the right of the lower focus
+            if (this.leftBoundary.x>= that.focus.x) // If our left edge is to the right of the lower focus
                 return 1;
-            if (this.leftBoundary.Cartesiany () <= that.focus.Cartesiany ()) // If our edge point is below both foci, or level with the lower
-				return this.leftBoundary.Cartesianx().CompareTo(that.focus.Cartesianx());
+            if (this.leftBoundary.y <= that.focus.y ) // If our edge point is below both foci, or level with the lower
+				return this.leftBoundary.x.CompareTo(that.focus.x);
 			// Final case, if our perpendicular bisector of the two foci crosses the vertical line through our lower focus at a lower point than
 			// our perpendicular bisector of our 'left' edge and our lower focus does...
 			Line twoFociBisector = this.focus.PerpendicularBisector(that.focus);
 			Line edgeAndLowerFocusBisector = this.leftBoundary.PerpendicularBisector (that.focus);
-			Line verticalLineThroughLowerFocus = new Line (1, 0, -that.focus.Cartesianx());
+			Line verticalLineThroughLowerFocus = new Line (1, 0, -that.focus.x);
 			Point twoFociBisectorVerticalIntersect = twoFociBisector.Intersect (verticalLineThroughLowerFocus);
 			Point edgeAndLowerFocusBisectorVerticalIntersect = edgeAndLowerFocusBisector.Intersect (verticalLineThroughLowerFocus);
-			return twoFociBisectorVerticalIntersect.Cartesiany ().CompareTo (edgeAndLowerFocusBisectorVerticalIntersect.Cartesiany ());
+			return twoFociBisectorVerticalIntersect.y .CompareTo (edgeAndLowerFocusBisectorVerticalIntersect.y );
 			throw new ApplicationException (String.Format ("Couldn't resolve comparison of beach sections {0} and {1}", this, that));
 		}
 
 		BeachSection FlippedHorizontally() { // Just completely mirror all the x points through the line x=0, to solve similar situations.
-			Point flippedFocus = new Point (-focus.Cartesianx (), focus.Cartesiany());
+			Point flippedFocus = new Point (-focus.x , focus.y);
             Point flippedLeftBoundary = null;
             Point flippedRightBoundary = null;
             if (rightBoundary != null)
-			    flippedLeftBoundary = new Point(-rightBoundary.Cartesianx(), rightBoundary.Cartesiany());
+			    flippedLeftBoundary = new Point(-rightBoundary.x, rightBoundary.y);
             if (leftBoundary != null)
-			    flippedRightBoundary = new Point(-leftBoundary.Cartesianx(), leftBoundary.Cartesiany());
+			    flippedRightBoundary = new Point(-leftBoundary.x, leftBoundary.y);
 			return new BeachSection (flippedFocus, flippedLeftBoundary, flippedRightBoundary);
 		}
 

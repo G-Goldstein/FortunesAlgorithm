@@ -79,8 +79,8 @@ namespace FortunesAlgorithm
             foreach (Point v1 in next.Select(kv => kv.Value))
             {
                 Point v2 = next[v1];
-                xAccumulator += (v1.Cartesianx() + v2.Cartesianx()) * (v1.Cartesianx() * v2.Cartesiany() - v2.Cartesianx() * v1.Cartesiany());
-                yAccumulator += (v1.Cartesiany() + v2.Cartesiany()) * (v1.Cartesianx() * v2.Cartesiany() - v2.Cartesianx() * v1.Cartesiany());
+                xAccumulator += (v1.x+ v2.x) * (v1.x* v2.y- v2.x* v1.y);
+                yAccumulator += (v1.y+ v2.y) * (v1.x* v2.y- v2.x* v1.y);
             }
             return new Point(xAccumulator / (6 * signedArea), yAccumulator / (6 * signedArea));
         }
@@ -91,15 +91,15 @@ namespace FortunesAlgorithm
             foreach (Point v1 in next.Select(kv => kv.Value))
             {
                 Point v2 = next[v1];
-                accumulator += v1.Cartesianx() * v2.Cartesiany() - v2.Cartesianx() * v1.Cartesiany();
+                accumulator += v1.x* v2.y- v2.x* v1.y;
             }
             return accumulator / 2f;
         }
 
         public static Point ArithmeticMean(IEnumerable<Point> points)
         {
-            float xSum = points.Aggregate(0f, (total, next) => total + next.Cartesianx());
-            float ySum = points.Aggregate(0f, (total, next) => total + next.Cartesiany());
+            float xSum = points.Aggregate(0f, (total, next) => total + next.x);
+            float ySum = points.Aggregate(0f, (total, next) => total + next.y);
             float xMean = xSum / points.Count();
             float yMean = ySum / points.Count();
             return new Point(xMean, yMean);
@@ -112,7 +112,7 @@ namespace FortunesAlgorithm
 
         public static float AngleFromOrigin(Point origin, Point point)
         {
-            return (float)Math.Atan2(point.Cartesiany() - origin.Cartesiany(), point.Cartesianx() - origin.Cartesianx());
+            return (float)Math.Atan2(point.y- origin.y, point.x- origin.x);
         }
     }
 }

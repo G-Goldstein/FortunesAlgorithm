@@ -16,9 +16,9 @@ namespace FortunesAlgorithm
             this.bottomRight = bottomRight;
         }
 
-        public float Right() { return this.bottomRight.Cartesianx(); }
-        public float Top() { return this.topLeft.Cartesiany(); }
-        public float Left() { return this.topLeft.Cartesianx(); }
-        public float Bottom() { return this.bottomRight.Cartesiany(); }
+        public float Right() { return this.bottomRight.x; }
+        public float Top() { return this.topLeft.y; }
+        public float Left() { return this.topLeft.x; }
+        public float Bottom() { return this.bottomRight.y; }
     }
 }

@@ -4,8 +4,8 @@ namespace FortunesAlgorithm
 {
 	public class Point
 	{
-		float x;
-		float y;
+		public float x;
+		public float y;
 
 		public Point (float x, float y) : this(new Vector3(x, y, 1)) {
 		}
@@ -48,15 +48,7 @@ namespace FortunesAlgorithm
 			return (this.Vector ().Colinear (that.Vector ()));
 		}
 
-		public float Cartesianx() {
-			return x;
-		}
-
-		public float Cartesiany() {
-			return y;
-		}
-
-		public Point MidpointWith(Point that) {
+        public Point MidpointWith(Point that) {
 			Vector3 av = this.Vector ();
 			Vector3 bv = that.Vector ();
 			return new Point (new Vector3(av.x * bv.z + bv.x * av.z, av.y * bv.z + bv.y * av.z, 2 * av.z * bv.z));
@@ -71,8 +63,8 @@ namespace FortunesAlgorithm
 		}
 
 		public float DistanceFrom(Point that) {
-			float xDistSquared = (float)Math.Pow(this.Cartesianx () - that.Cartesianx (), 2);
-			float yDistSquared = (float)Math.Pow(this.Cartesiany () - that.Cartesiany (), 2);
+			float xDistSquared = (float)Math.Pow(this.x - that.x , 2);
+			float yDistSquared = (float)Math.Pow(this.y - that.y , 2);
 			return (float)Math.Sqrt (xDistSquared + yDistSquared);
 		}
 	}

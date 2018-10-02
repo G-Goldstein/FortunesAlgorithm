@@ -45,11 +45,11 @@ namespace FortunesAlgorithm
             beachSections.Add(newBeachSectionRight);
 
             foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { newBeachSectionLeft, newBeachSectionRight }))
-                if (iep.Point().Cartesiany() <= site.Cartesiany())
+                if (iep.Point().y<= site.y)
                     eventQueue.Add(iep);
 
             foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { containingBeachSection }))
-                if (iep.Point().Cartesiany() <= site.Cartesiany())
+                if (iep.Point().y<= site.y)
                     eventQueue.Remove(iep);
         }
 
@@ -67,11 +67,11 @@ namespace FortunesAlgorithm
             beachSections.Add(newRightBeachSection);
 
             foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { leftBeachSection, rightBeachSection }))
-                if (iep.Point().Cartesiany() <= intersectEventPoint.Point().Cartesiany())
+                if (iep.Point().y<= intersectEventPoint.Point().y)
                     eventQueue.Remove(iep);
 
             foreach (IntersectEventPoint iep in IntersectEventPoint.FromBeachSections(new List<BeachSection> { newLeftBeachSection, newRightBeachSection }))
-                if (iep.Point().Cartesiany() <= intersectEventPoint.Point().Cartesiany())
+                if (iep.Point().y<= intersectEventPoint.Point().y)
                     if (!iep.Equals(intersectEventPoint))
                         eventQueue.Add(iep);
         }

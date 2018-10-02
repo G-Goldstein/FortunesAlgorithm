@@ -22,7 +22,7 @@ namespace FortunesAlgorithm
 			// This point isn't the centre of the circle formed by the two rays, but instead the point on
 			// the circle's perimeter with the least y. The 'bottom' of the circle.
 			Point centre = Centre();
-			return new Point (centre.Cartesianx (), centre.Cartesiany () - Radius ());
+			return new Point (centre.x , centre.y - Radius ());
 		}
 
 		Point Centre() {
