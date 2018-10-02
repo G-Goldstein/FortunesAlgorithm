@@ -5,11 +5,11 @@ using System.Text;
 
 namespace FortunesAlgorithm
 {
-    public class FortunesAlgorithm
+    internal class FortunesAlgorithm
     {
         Dictionary<Point, VoronoiCellUnorganised> cells;
 
-        public Dictionary<Point, VoronoiCellUnorganised> WithPoints(IEnumerable<Point> points)
+        internal Dictionary<Point, VoronoiCellUnorganised> WithPoints(IEnumerable<Point> points)
         {
             if (points.Count() == 0)
                 throw new System.ArgumentException("No points provided");

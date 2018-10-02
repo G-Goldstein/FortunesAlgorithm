@@ -21,17 +21,17 @@ namespace FortunesAlgorithm
 		[Test]
 		public void ResultingDiagramHasOneCell ()
 		{
-			Assert.AreEqual (1, voronoi.Cells ().Count ());
+			Assert.AreEqual (1, voronoi.UnorganisedCells ().Count ());
 		}
 
 		[Test]
 		public void ResultingDiagramsCellIsCentredOnSite() {
-			Assert.AreEqual (site, voronoi.Cells ().First ().Site ());
+			Assert.AreEqual (site, voronoi.UnorganisedCells ().First ().Site ());
 		}
 
 		[Test]
 		public void ResultingDiagramsCellHasNoBorders() {
-			Assert.AreEqual (0, voronoi.Cells ().First ().Borders ().Count ());
+			Assert.AreEqual (0, voronoi.UnorganisedCells ().First ().Borders ().Count ());
 		}
 	}
 }

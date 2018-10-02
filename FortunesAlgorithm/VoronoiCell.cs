@@ -18,10 +18,10 @@ namespace FortunesAlgorithm
             return site;
         }
 
-        public abstract IEnumerable<Point> Borders();
+        internal abstract IEnumerable<Point> Borders();
     }
 
-	public class VoronoiCellUnorganised : VoronoiCell
+	internal class VoronoiCellUnorganised : VoronoiCell
     {
 
         protected List<Point> borderSites;
@@ -40,7 +40,7 @@ namespace FortunesAlgorithm
             return new VoronoiCellOrganised(site, borderSites);
         }
 
-        public override IEnumerable<Point> Borders()
+        internal override IEnumerable<Point> Borders()
         {
             return borderSites;
         }
@@ -87,7 +87,7 @@ namespace FortunesAlgorithm
             return border.DistanceFrom(neighbourIntersect) >= site.DistanceFrom(neighbourIntersect);
         }
 
-        public override IEnumerable<Point> Borders()
+        internal override IEnumerable<Point> Borders()
         {
             return borderOrdering.AllPointsInOrder();
         }

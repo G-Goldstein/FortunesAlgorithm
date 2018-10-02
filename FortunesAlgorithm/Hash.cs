@@ -2,7 +2,7 @@
 
 namespace FortunesAlgorithm
 {
-	public static class Hash
+    internal static class Hash
 	{
 		public static int Pair(object a, object b) {
 			unchecked {

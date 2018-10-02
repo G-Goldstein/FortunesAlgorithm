@@ -25,7 +25,7 @@ namespace FortunesAlgorithm
 
             siteToBordersMap = new Dictionary<Point, List<Point>>();
 
-            List<VoronoiCellUnorganised> cells = voronoi.Cells().ToList();
+            List<VoronoiCellUnorganised> cells = voronoi.UnorganisedCells().ToList();
             foreach (VoronoiCellUnorganised cell in cells)
             {
                 siteToBordersMap[cell.Site()] = cell.Borders().ToList();
@@ -35,7 +35,7 @@ namespace FortunesAlgorithm
 		[Test]
 		public void ResultingDiagramHasThreeCells ()
 		{
-			Assert.AreEqual (3, voronoi.Cells ().Count ());
+			Assert.AreEqual (3, voronoi.UnorganisedCells ().Count ());
 		}
 
         [Test]

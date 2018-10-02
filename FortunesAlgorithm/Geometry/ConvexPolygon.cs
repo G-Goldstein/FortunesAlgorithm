@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FortunesAlgorithm
 {
-    public class ConvexPolygon
+    internal class ConvexPolygon
     {
         Point arithmeticMean;
         Dictionary<Point, Point> next;

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace FortunesAlgorithm
 {
-    public static class Geometry
+    internal static class Geometry
     {
-        public static VoronoiCellUnorganised PointInRectangleAsVoronoiCell(Point point, Rectangle rectangle)
+        internal static VoronoiCellUnorganised PointInRectangleAsVoronoiCell(Point point, Rectangle rectangle)
         {
             EnsureRectangleContainsPoint(rectangle, point);
             VoronoiCellUnorganised cell = new VoronoiCellUnorganised(point);

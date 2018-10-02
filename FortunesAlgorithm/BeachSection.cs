@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FortunesAlgorithm
 {
-	public class BeachSection : IComparable
+    internal class BeachSection : IComparable
 	{
 		public Point focus;
 		public Point leftBoundary;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FortunesAlgorithm
 {
-	public class IntersectEventPoint : IEventPoint {
+    internal class IntersectEventPoint : IEventPoint {
 
 		public BeachSection consumedBeachSection;
 		Point a;

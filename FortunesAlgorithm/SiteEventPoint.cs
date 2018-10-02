@@ -2,7 +2,7 @@
 
 namespace FortunesAlgorithm
 {
-	public class SiteEventPoint : IEventPoint {
+    internal class SiteEventPoint : IEventPoint {
 
 		Point point;
 

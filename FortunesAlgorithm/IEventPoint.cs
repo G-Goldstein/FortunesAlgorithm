@@ -2,7 +2,7 @@
 
 namespace FortunesAlgorithm
 {
-	public interface IEventPoint
+    internal interface IEventPoint
 	{
 		Point Point();
 		string EventType();

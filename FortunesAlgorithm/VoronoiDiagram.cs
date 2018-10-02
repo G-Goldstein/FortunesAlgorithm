@@ -7,21 +7,26 @@ namespace FortunesAlgorithm
 {
 	public class VoronoiDiagram
 	{
-		protected Dictionary<Point, VoronoiCellUnorganised> cells;
+		internal Dictionary<Point, VoronoiCellUnorganised> cells;
 
 		public VoronoiDiagram(IEnumerable<Point> points)
 		{
             cells = new FortunesAlgorithm().WithPoints(points);
 		}
         
-        public List<VoronoiCellUnorganised> Cells()
+        internal List<VoronoiCellUnorganised> UnorganisedCells()
         {
             return cells.Values.ToList();
         }
 
         public IEnumerable<Point> Points()
         {
-            return Cells().Select(c => c.Site());
+            return UnorganisedCells().Select(c => c.Site());
+        }
+
+        public IEnumerable<VoronoiCellOrganised> Cells()
+        {
+            return cells.Values.Select(c => c.Organised());
         }
 	}
 

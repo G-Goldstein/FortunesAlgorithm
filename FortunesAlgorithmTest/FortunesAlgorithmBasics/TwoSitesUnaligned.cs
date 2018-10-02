@@ -23,12 +23,12 @@ namespace FortunesAlgorithm
 		[Test]
 		public void ResultingDiagramHasTwoCells ()
 		{
-			Assert.AreEqual (2, voronoi.Cells ().Count ());
+			Assert.AreEqual (2, voronoi.UnorganisedCells ().Count ());
 		}
 
 		[Test]
 		public void EachCellHasOneBorder() {
-			List<VoronoiCellUnorganised> cells = voronoi.Cells ().ToList ();
+			List<VoronoiCellUnorganised> cells = voronoi.UnorganisedCells ().ToList ();
 			foreach (VoronoiCellUnorganised cell in cells) {
 				Assert.AreEqual (1, cell.Borders ().Count ());
 			}
@@ -43,7 +43,7 @@ namespace FortunesAlgorithm
             expectedBorderMap[siteA] = siteB;
             expectedBorderMap[siteB] = siteA;
 
-            List<VoronoiCellUnorganised> cells = voronoi.Cells().ToList();
+            List<VoronoiCellUnorganised> cells = voronoi.UnorganisedCells().ToList();
             foreach (VoronoiCellUnorganised cell in cells)
             {
                 siteToBorderMap[cell.Site()] = cell.Borders().First();

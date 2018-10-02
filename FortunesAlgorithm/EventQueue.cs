@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FortunesAlgorithm
 {
-	public class EventQueue
+    internal class EventQueue
 	{
 
 		Heap<IEventPoint> eventQueue;

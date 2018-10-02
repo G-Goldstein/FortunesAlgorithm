@@ -4,7 +4,7 @@ using FortunesAlgorithm;
 
 namespace BeachSectionsAndPoints
 {
-	public static class AssertCompare {
+    internal static class AssertCompare {
 		public static void Greater(BeachSection bs, Point p) {
 			Assert.True (bs.CompareTo (p) > 0);
 		}

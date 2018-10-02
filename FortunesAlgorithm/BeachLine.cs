@@ -6,7 +6,7 @@ using Structures;
 
 namespace FortunesAlgorithm
 {
-    class BeachLine
+    internal class BeachLine
     {
         RBTree<BeachSection> beachSections;
         EventQueue eventQueue;
