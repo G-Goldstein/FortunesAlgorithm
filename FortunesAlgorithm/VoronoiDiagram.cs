@@ -9,7 +9,7 @@ namespace FortunesAlgorithm
 	{
 		internal Dictionary<Point, VoronoiCellUnorganised> cells;
 
-		public VoronoiDiagram(IEnumerable<Point> points)
+		internal VoronoiDiagram(IEnumerable<Point> points)
 		{
             cells = new FortunesAlgorithm().WithPoints(points);
 		}
