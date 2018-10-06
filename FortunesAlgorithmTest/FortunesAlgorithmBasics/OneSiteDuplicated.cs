@@ -4,7 +4,7 @@ using FortunesAlgorithm;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FortunesAlgorithm
+namespace FortunesAlgorithmBasics
 {
 	[TestFixture]
 	public class OneSiteDuplicated // The site is passed in twice. Should give same results as though it was passed once.

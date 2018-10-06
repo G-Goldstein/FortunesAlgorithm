@@ -4,7 +4,7 @@ using FortunesAlgorithm;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FortunesAlgorithm
+namespace FortunesAlgorithmEdgeCases
 {
     [TestFixture]
     public class PerfectSquareOrthogonal
