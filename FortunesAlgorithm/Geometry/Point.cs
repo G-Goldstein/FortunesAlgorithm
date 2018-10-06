@@ -31,7 +31,7 @@ namespace FortunesAlgorithm
 
 		public override string ToString ()
 		{
-			return string.Format ("Point({0})", Vector());
+			return string.Format ("Point({0}, {1})", x, y);
 		}
 
 		public override int GetHashCode ()

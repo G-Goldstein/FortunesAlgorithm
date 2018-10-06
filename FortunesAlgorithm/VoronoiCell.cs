@@ -70,11 +70,12 @@ namespace FortunesAlgorithm
                 {
                     Point nextCandidate = borderOrdering.PreviousVertex(candidateBorder);
                     borderOrdering.Remove(candidateBorder);
+                    candidateBorder = nextCandidate;
                     streak = Math.Max(streak - 1, 0);
                     excludedBorders++;
                 } else
                 {
-                    Point nextCandidate = borderOrdering.NextVertex(candidateBorder);
+                    candidateBorder = borderOrdering.NextVertex(candidateBorder);
                     streak++;
                 }
             }
@@ -94,7 +95,7 @@ namespace FortunesAlgorithm
             return borderOrdering.AllPointsInOrder();
         }
 
-        IEnumerable<Point> Vertices()
+        public IEnumerable<Point> Vertices()
         {
             List<Line> borders = borderOrdering.AllPointsInOrder().Select(p => p.PerpendicularBisector(site)).ToList();
             for (int i = 0; i < borders.Count(); i++ )

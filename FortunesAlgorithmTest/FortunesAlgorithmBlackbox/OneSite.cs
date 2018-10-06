@@ -38,5 +38,29 @@ namespace FortunesAlgorithmBlackbox
         {
             Assert.AreEqual(4, voronoi.Cells().First().Borders().Count());
         }
+
+        [Test]
+        public void CellTopRight()
+        {
+            Assert.Contains(new Point(border.Right(), border.Top()), voronoi.Cells().First().Vertices().ToList());
+        }
+
+        [Test]
+        public void CellTopLeft()
+        {
+            Assert.Contains(border.topLeft, voronoi.Cells().First().Vertices().ToList());
+        }
+
+        [Test]
+        public void CellBottomLeft()
+        {
+            Assert.Contains(new Point(border.Left(), border.Bottom()), voronoi.Cells().First().Vertices().ToList());
+        }
+
+        [Test]
+        public void CellBottomRight()
+        {
+            Assert.Contains(border.bottomRight, voronoi.Cells().First().Vertices().ToList());
+        }
     }
 }
