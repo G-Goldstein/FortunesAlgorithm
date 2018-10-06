@@ -58,10 +58,6 @@ namespace FortunesAlgorithm
 			return this.LineWith (that).PerpendicularThroughPoint (this.MidpointWith (that));
 		}
 
-		public static Point CircleCentre(Point a, Point b, Point c) {
-			return a.PerpendicularBisector(b).Intersect(a.PerpendicularBisector(c));
-		}
-
 		public float DistanceFrom(Point that) {
 			float xDistSquared = (float)Math.Pow(this.x - that.x , 2);
 			float yDistSquared = (float)Math.Pow(this.y - that.y , 2);

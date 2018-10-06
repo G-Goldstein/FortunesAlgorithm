@@ -81,11 +81,11 @@ namespace FortunesAlgorithm
 			if (leftBoundary.y > focus.y ) {
 				if (site.x >= xIntercept)
 					return false;
-				return Point.CircleCentre (site, focus, leftBoundary).x > site.x ;
+				return Geometry.CircleCentre (site, focus, leftBoundary).x > site.x ;
 			}
 			if (site.x <= xIntercept)
 				return true;
-			return Point.CircleCentre (site, focus, leftBoundary).x > site.x ;
+			return Geometry.CircleCentre (site, focus, leftBoundary).x > site.x ;
 		}
 
 		bool PointIsRightOfRightEdge(Point site) {

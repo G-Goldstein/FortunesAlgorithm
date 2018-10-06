@@ -36,6 +36,11 @@ namespace FortunesAlgorithm
                 throw new ArgumentOutOfRangeException("Rectangle doesn't contain point");
         }
 
+        public static bool Colinear(Point a, Point b, Point c)
+        {
+            return a.LineWith(b).Vector().Colinear(a.LineWith(c).Vector());
+        }
+
         public static Point CircleCentre(Point a, Point b, Point c)
         {
             return new PerpendicularBisector(a, b).Line().Intersect(new PerpendicularBisector(a, c).Line());

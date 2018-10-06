@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FortunesAlgorithmBasics\OneSiteDuplicated.cs" />
+    <Compile Include="FortunesAlgorithmBlackbox\OneSite.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\DiagonalRowOfColinearSites.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\HorizontalRowOfSitesWithLeader.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\PerfectSquareDiagonal.cs" />

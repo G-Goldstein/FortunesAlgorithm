@@ -83,7 +83,9 @@ namespace FortunesAlgorithm
 
         private bool EclipsedByNeighbours(Point border)
         {
-            Point neighbourIntersect = Geometry.CircleCentre(border, borderOrdering.NextVertex(border), borderOrdering.PreviousVertex(border));
+            if (Geometry.Colinear(site, borderOrdering.NextVertex(border), borderOrdering.PreviousVertex(border)))
+                return false;
+            Point neighbourIntersect = Geometry.CircleCentre(site, borderOrdering.NextVertex(border), borderOrdering.PreviousVertex(border));
             return border.DistanceFrom(neighbourIntersect) >= site.DistanceFrom(neighbourIntersect);
         }
 
