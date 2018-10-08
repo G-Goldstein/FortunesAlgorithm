@@ -42,10 +42,10 @@ namespace FortunesAlgorithm
                     cell.AddBorder(p);
         }
 
-        public VoronoiDiagramBordered Smoothed()
+        public ScatterPlot Smoothed()
         {
             IEnumerable<Point> newPoints = cells.Values.Select(c => c.Organised().Centroid());
-            return new VoronoiDiagramBordered(newPoints, this.enclosingRegion);
+            return new ScatterPlot(this.enclosingRegion, newPoints);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace FortunesAlgorithmBlackbox
         {
             site = new Point(3, 4);
             border = new Rectangle(new Point(1, 5), new Point(8, -1));
-            voronoi = new VoronoiDiagramBordered(new List<Point> { site }, border).Smoothed();
+            voronoi = new VoronoiDiagramBordered(new List<Point> { site }, border).Smoothed().Voronoi();
         }
 
         [Test]

@@ -60,6 +60,10 @@
     <Compile Include="FortunesAlgorithmBasics\NoSites.cs" />
     <Compile Include="FortunesAlgorithmBasics\OneSite.cs" />
     <Compile Include="FortunesAlgorithmBasics\TwoSitesUnaligned.cs" />
+    <Compile Include="ScatterPlot\MeanRadiusRequest.cs" />
+    <Compile Include="GeometryTest\RectangleArea.cs" />
+    <Compile Include="ScatterPlot\PointRequestCount.cs" />
+    <Compile Include="ScatterPlot\InteriorPointsIncluded.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -68,4 +72,5 @@
       <Name>FortunesAlgorithm</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
 </Project>
