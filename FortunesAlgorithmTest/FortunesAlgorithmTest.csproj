@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="FortunesAlgorithmBasics\OneSiteDuplicated.cs" />
     <Compile Include="FortunesAlgorithmBlackbox\OneSiteSmoothed.cs" />
+    <Compile Include="FortunesAlgorithmBlackbox\RandomSites.cs" />
     <Compile Include="FortunesAlgorithmBlackbox\TwoEqualSites.cs" />
     <Compile Include="FortunesAlgorithmBlackbox\OneSite.cs" />
     <Compile Include="FortunesAlgorithmEdgeCases\DiagonalRowOfColinearSites.cs" />

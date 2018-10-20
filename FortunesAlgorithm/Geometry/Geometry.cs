@@ -38,7 +38,7 @@ namespace FortunesAlgorithm
 
         public static bool Colinear(Point a, Point b, Point c)
         {
-            return a.LineWith(b).Vector().Colinear(a.LineWith(c).Vector());
+            return new PerpendicularBisector(a, b).Line().Vector().CrossProduct(new PerpendicularBisector(a, c).Line().Vector()).z == 0;
         }
 
         public static Point CircleCentre(Point a, Point b, Point c)
